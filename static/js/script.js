@@ -1,16 +1,21 @@
-var socket = io();
+ï»¿var socket = io();
 
-// Ú‘±Ò”‚ÌXV
+// æ¥ç¶šè€…æ•°ã®æ›´æ–°
 socket.on('count_update', function (msg) {
     $('#user_count').html(msg.user_count);
 });
 
-// ƒeƒLƒXƒgƒGƒŠƒA‚ÌXV
+// ãƒ†ã‚­ã‚¹ãƒˆã‚¨ãƒªã‚¢ã®æ›´æ–°
 socket.on('text_update', function (msg) {
     $('#text').val(msg.text);
 });
 
-// ƒeƒLƒXƒgƒGƒŠƒA‚ª•ÏX‚³‚ê‚é‚ÆŒÄ‚Ño‚³‚ê‚é
+// ãƒ†ã‚­ã‚¹ãƒˆã‚¨ãƒªã‚¢ãŒå¤‰æ›´ã•ã‚Œã‚‹ã¨å‘¼ã³å‡ºã•ã‚Œã‚‹
 $('#text').on('change keyup input', function () {
+});
+
+
+
+$(document).on('change keyup input', '#text', function () {
     socket.emit('text_update_request', { text: $(this).val() });
 });

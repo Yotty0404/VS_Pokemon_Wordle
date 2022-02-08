@@ -10,7 +10,7 @@
     </SearchPath>
     <WorkingDirectory>.</WorkingDirectory>
     <OutputPath>.</OutputPath>
-    <Name>VS_Wordle</Name>
+    <Name>VS_Pokemon_Wordle</Name>
     <RootNamespace>VS_Pokemon_Wordle</RootNamespace>
     <SuppressEnvironmentCreationPrompt>True</SuppressEnvironmentCreationPrompt>
   </PropertyGroup>
