@@ -3,14 +3,16 @@
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>038fe73e-615c-4197-ab9c-1d371084a027</ProjectGuid>
-    <ProjectHome>.</ProjectHome>
+    <ProjectHome>
+    </ProjectHome>
     <StartupFile>app.py</StartupFile>
     <SearchPath>
     </SearchPath>
     <WorkingDirectory>.</WorkingDirectory>
     <OutputPath>.</OutputPath>
-    <Name>VS_Pokemon_Wordle</Name>
+    <Name>VS_Wordle</Name>
     <RootNamespace>VS_Pokemon_Wordle</RootNamespace>
+    <SuppressEnvironmentCreationPrompt>True</SuppressEnvironmentCreationPrompt>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
     <DebugSymbols>true</DebugSymbols>
@@ -22,6 +24,17 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="app.py" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="static\css\style.css" />
+    <Content Include="static\js\script.js" />
+    <Content Include="templates\index.html" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="static\" />
+    <Folder Include="static\css\" />
+    <Folder Include="static\js\" />
+    <Folder Include="templates\" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\Python Tools\Microsoft.PythonTools.targets" />
   <!-- Uncomment the CoreCompile target to enable the Build command in
