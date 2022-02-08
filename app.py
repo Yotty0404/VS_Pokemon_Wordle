@@ -1,5 +1,6 @@
 from flask import Flask, render_template, request
 from flask_socketio import SocketIO, send, emit
+import os
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'secret!'
@@ -50,4 +51,4 @@ def text_update_request(json):
 if __name__ == '__main__':
     # 本番環境ではeventletやgeventを使うらしいが簡単のためデフォルトの開発用サーバーを使う
     #socketio.run(app, debug=True)
-    socketio.run(app)
+    socketio.run(app, port=int(os.environ.get('PORT', '5000')))
