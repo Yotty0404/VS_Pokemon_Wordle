@@ -3,11 +3,7 @@ from flask_socketio import SocketIO, send, emit
 import os
 
 app = Flask(__name__)
-app.config['SECRET_KEY'] = 'secret!'
-async_mode = None
-
-# cors_allowed_originは本来適切に設定するべき
-socketio = SocketIO(app, async_mode=async_mode)
+socketio = SocketIO(app)
 
 # ユーザー数
 user_count = 0
@@ -51,4 +47,5 @@ def text_update_request(json):
 if __name__ == '__main__':
     # 本番環境ではeventletやgeventを使うらしいが簡単のためデフォルトの開発用サーバーを使う
     #socketio.run(app, debug=True)
-    socketio.run(app)
+    #socketio.run(app)
+    socketio.run(app, debug=True, host='0.0.0.0', port=5004)
