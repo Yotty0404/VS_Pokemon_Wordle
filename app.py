@@ -51,4 +51,4 @@ def text_update_request(json):
 if __name__ == '__main__':
     # 本番環境ではeventletやgeventを使うらしいが簡単のためデフォルトの開発用サーバーを使う
     #socketio.run(app, debug=True)
-    socketio.run(app, port=int(os.environ.get('PORT', '5000')))
+    socketio.run(app)
