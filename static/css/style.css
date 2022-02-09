@@ -80,7 +80,6 @@
     overflow-y: scroll;
 }
 
-
     .predict::-webkit-scrollbar {
         display: none;
     }
