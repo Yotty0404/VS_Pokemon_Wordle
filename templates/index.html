@@ -10,6 +10,50 @@
 </head>
 <body>
     <p>現在の接続者数<span id="user_count"></span>人</p>
+    <p id="id1"></p>
+    <p id="id2"></p>
+    <p id="turn"></p>
     <textarea id="text" name="text" rows="10" cols="60"></textarea>
+    <div id="board_container">
+        <div id="board_l" class="board">
+            <div id="answer_l" class="row">
+                <div class="tile">A</div>
+                <div class="tile"></div>
+                <div class="tile"></div>
+                <div class="tile"></div>
+                <div class="tile"></div>
+            </div>
+            <div class="row">
+                <div class="tile"></div>
+                <div class="tile"></div>
+                <div class="tile"></div>
+                <div class="tile"></div>
+                <div class="tile"></div>
+            </div>
+        </div>
+        <div id="board_r" class="board">
+            <div id="answer_r" class="row">
+                <div class="tile"></div>
+                <div class="tile"></div>
+                <div class="tile"></div>
+                <div class="tile"></div>
+                <div class="tile"></div>
+            </div>
+            <div class="row">
+                <div class="tile"></div>
+                <div class="tile"></div>
+                <div class="tile"></div>
+                <div class="tile"></div>
+                <div class="tile"></div>
+            </div>
+        </div>
+    </div>
+
+    <div id="input_container">
+        <div>
+            <input id="txtPokeName" class="textbox" type="text" placeholder="ポケモンの名前" />
+            <input id="btn" type="button" value="ENTER" class="btn">
+        </div>
+    </div>
 </body>
 </html>
