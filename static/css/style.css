@@ -74,6 +74,10 @@
     opacity: 0;
 }
 
+_::-webkit-full-page-media, _:future, :root .predict {
+    margin-left: 0px;
+}
+
 .predict {
     height: calc(100vh - 260px);
     overflow-y: scroll;
