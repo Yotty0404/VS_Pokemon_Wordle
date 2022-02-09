@@ -9,58 +9,61 @@
     <script src="static/js/script.js" charset="shift_jis"></script>
 </head>
 <body>
-    <p>現在の接続者数<span id="user_count"></span>人</p>
-    <p id="id1"></p>
-    <p id="id2"></p>
-    <p id="turn"></p>
-    <p id="player"></p>
+    <div id="header_container">
+        <div id="header">VS POKEMON WORDLE</div>
+    </div>
+    <div id="header_container2">
+        <div>
+            <p class="info">現在の接続者数<span id="user_count"></span>人</p>
+            <!--<p id="id1"></p>-->
+            <!--<p id="id2"></p>-->
+            <p id="player" class="info"></p>
+            <p id="turn" class="info"></p>
+        </div>
+        <input id="btn_end" type="button" value="RESET" class="btn" disabled="disabled">
+    </div>
     <div id="board_container">
         <div id="board_l" class="board">
             <div class="player">Player1</div>
-            <div id="answer_l" class="row">
+            <div id="answer_l" class="answer row">
                 <div class="tile"></div>
                 <div class="tile"></div>
                 <div class="tile"></div>
                 <div class="tile"></div>
                 <div class="tile"></div>
             </div>
-            <div class="row">
-                <div class="tile"></div>
-                <div class="tile"></div>
-                <div class="tile"></div>
-                <div class="tile"></div>
-                <div class="tile"></div>
+            <div id="predict_l_container" class="predict">
             </div>
         </div>
         <div id="board_r" class="board">
             <div class="player">Player2</div>
-            <div id="answer_r" class="row">
+            <div id="answer_r" class="answer row">
                 <div class="tile"></div>
                 <div class="tile"></div>
                 <div class="tile"></div>
                 <div class="tile"></div>
                 <div class="tile"></div>
             </div>
-            <div class="row">
-                <div class="tile"></div>
-                <div class="tile"></div>
-                <div class="tile"></div>
-                <div class="tile"></div>
-                <div class="tile"></div>
+            <div id="predict_r_container" class="predict">
             </div>
         </div>
     </div>
 
     <div id="input_container">
         <div>
-            <input id="txtPokeName" class="textbox" type="text" placeholder="ポケモンの名前" />
+            <input id="txt_poke_name" class="textbox" type="text" placeholder="ポケモンの名前" />
             <input id="btn" type="button" value="ENTER" class="btn">
         </div>
     </div>
 
-    <div id="battle_start_container">
+    <div id="battle_start_container" class="collapse">
         <div id="battle_start" class="transparent">
             BATTLE START
+        </div>
+    </div>
+
+    <div id="msg_container" class="collapse">
+        <div id="msg" class="transparent">
         </div>
     </div>
 </body>

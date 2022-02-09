@@ -1,9 +1,39 @@
+Ôªøhtml {
+    font-family: '„É°„Ç§„É™„Ç™', 'Meiryo', sans-serif;
+}
+
+#header_container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
+
+#header {
+    height: 45px;
+    width: 450px;
+    text-align: center;
+    font-size: 33px;
+    font-weight: 700;
+    border-bottom: 2px solid rgb(225, 225, 225);
+}
+
+#header_container2 {
+    display: flex;
+    justify-content: space-between;
+}
+
+.info {
+    height: 20px;
+    margin: 0px;
+}
+
 #board_container {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-around;
     width: 550px;
     margin: 0 auto;
+    height: calc(100vh - 243px);
 }
 
 .board {
@@ -12,6 +42,13 @@
 
 .player {
     text-align: center;
+    background-color: rgb(225, 225, 225);
+}
+
+.answer {
+    background-color: rgb(225, 225, 225);
+    padding-bottom: 2px;
+    margin-bottom: 2px;
 }
 
 .row {
@@ -29,11 +66,18 @@
     align-items: center;
     margin: 2px;
     transition: all 0.5s ease;
+    background-color: white;
 }
 
 .tile_disappear {
-    transform: rotate3d(-1, 0, 0, 100deg); /*âúçsÇ´ÇÇ‡ÇΩÇπÇƒâÒì]*/
+    transform: rotate3d(-1, 0, 0, 100deg); /*Â••Ë°å„Åç„Çí„ÇÇ„Åü„Åõ„Å¶ÂõûËª¢*/
     opacity: 0;
+}
+
+.predict {
+    height: calc(100vh - 260px);
+    overflow-y: scroll;
+    margin-left: 18px;
 }
 
 
@@ -87,6 +131,7 @@ input:focus::placeholder {
     border: none;
     cursor: pointer;
     transition: all .3s;
+    z-index: 1000;
 }
 
     .btn:hover {
@@ -128,4 +173,58 @@ input:focus::placeholder {
 
 .transparent {
     opacity: 0;
+    visibility: collapse;
+}
+
+.collapse {
+    visibility: collapse;
+}
+
+
+#msg_container {
+    /*    position: fixed;*/
+    position: absolute;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    height: 85%;
+    width: 100%;
+    top: 0;
+    left: 0;
+}
+
+#msg {
+    text-align: center;
+    font-weight: bold;
+    font-size: 20px;
+    color: white;
+    background-color: rgb(0, 0, 0);
+    transition: all .5s;
+    padding: 5px 10px 2px 10px;
+    border-radius: 8px;
+}
+
+.judge0 {
+    background-color: rgb(141, 141, 141);
+    color: white;
+}
+
+.judge1 {
+    background-color: rgb(73, 185, 77);
+    color: white;
+}
+
+.judge2 {
+    background-color: rgb(211, 198, 79);
+    color: white;
+}
+
+
+.win {
+    text-shadow: 3px 3px 0 #EC654A !important;
+}
+
+
+.lose {
+    text-shadow: 3px 3px 0 #4695B2 !important;
 }
