@@ -9,11 +9,6 @@ socket.on('count_update', function (msg) {
     $('#user_count').html(msg.user_count);
 });
 
-//テキストエリアの更新
-socket.on('text_update', function (msg) {
-    $('#text').val(msg.text);
-});
-
 //id更新
 socket.on('info_update', function (msg) {
     $('#id1').html(msg.p1_id);
@@ -21,13 +16,52 @@ socket.on('info_update', function (msg) {
 
     p1_id = msg.p1_id;
     p2_id = msg.p2_id;
+
+
+    //プレイヤー判断
+    if (p1_id == socket.id) {
+        $('#player').html("あなたはPlayer1です。");
+    }
+    else if (p2_id == socket.id) {
+        $('#player').html("あなたはPlayer2です。");
+    }
+});
+
+//正解を更新
+socket.on('update_answer', function (msg) {
+    $("#txtPokeName").prop("disabled", false);
+    $("#btn").prop("disabled", false);
+
+    if (msg.is_p1) {
+        updateRow('?????', $("#answer_l"));
+    }
+    else {
+        updateRow('?????', $("#answer_r"));
+    }
+});
+
+
+
+//バトルスタート
+socket.on('battle_start', async function () {
+    //プレイヤー判断
+    if (p1_id == socket.id) {
+        $("#txtPokeName").prop("disabled", false);
+        $("#btn").prop("disabled", false);
+    }
+    else if (p2_id == socket.id) {
+        $("#txtPokeName").prop("disabled", true);
+        $("#btn").prop("disabled", true);
+    }
+
+    $(battle_start).removeClass("transparent");
+    await sleep(2000);
+    $(battle_start).addClass("transparent");
 });
 
 //ターン変更
 socket.on('change_turn', function (msg) {
-    $("#btn").prop("disabled", false);
-
-    if (msg.is_p1_turn) {
+    if (msg.is_p1) {
         $('#turn').html('Player1のターン');
     }
     else {
@@ -36,25 +70,29 @@ socket.on('change_turn', function (msg) {
 });
 
 
-$(document).on('change keyup input', '#text', function () {
-    socket.emit('text_update_request', { text: $(this).val() });
-});
+
 
 //ボタンクリック
 $(document).on('click', '#btn', function () {
+    $("#txtPokeName").prop("disabled", true);
     $("#btn").prop("disabled", true);
-    socket.emit('btn_click');
 
     var pokeName = $("#txtPokeName").val();
     $("#txtPokeName").val("");
 
     if (!is_in_game) {
+        //プレイヤー判断
         if (p1_id == socket.id) {
             updateRow(pokeName, $("#answer_l"));
+            socket.emit('btn_click', { is_p1: true });
         }
         else if (p2_id == socket.id) {
             updateRow(pokeName, $("#answer_r"));
+            socket.emit('btn_click', { is_p1: false });
         }
+    }
+    else {
+
     }
 });
 

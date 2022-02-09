@@ -6,12 +6,17 @@
     margin: 0 auto;
 }
 
-.class {
+.board {
     width: 50%;
+}
+
+.player {
+    text-align: center;
 }
 
 .row {
     display: flex;
+    justify-content: center;
 }
 
 .tile {
@@ -51,15 +56,25 @@
     border-radius: 3px;
     font-size: 22px;
     padding: 4px;
-    transform: translateY(1px);
+    transform: translateY(2px);
 }
+
+    .textbox:disabled {
+        background: #AAAAAA;
+        cursor: default;
+    }
+
+        .textbox:disabled::placeholder {
+            color: #C0C0C0;
+        }
+
 
 input:focus::placeholder {
     color: transparent;
 }
 
 ::placeholder {
-    color: rgb(197, 197, 197);
+    color: #C5C5C5;
 }
 
 .btn {
@@ -79,6 +94,38 @@ input:focus::placeholder {
     }
 
     .btn:disabled {
-        background: #ffcc00;
+        color: #C0C0C0;
+        background: #AAAAAA;
         cursor: default;
     }
+
+
+
+#battle_start_container {
+    /*    position: fixed;*/
+    position: absolute;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    height: 85%;
+    width: 100%;
+    top: 0;
+    left: 0;
+}
+
+#battle_start {
+    width: 560px;
+    text-align: center;
+    font-weight: bold;
+    font-size: 60px;
+    color: rgba(0, 0, 0, 0);
+    text-shadow: 3px 3px 0 #9db;
+    -webkit-text-stroke: 1px #888;
+    text-stroke: 1px #888;
+    background-color: rgba(255, 255, 255, 0.91);
+    transition: all .5s;
+}
+
+.transparent {
+    opacity: 0;
+}
