@@ -219,23 +219,23 @@ $(document).on('click', '#btn', function () {
 });
 
 async function check_poke_name(poke_name) {
-    var data = "";
+    var msg = "";
     var rtn = true;
 
     if (poke_name.length != 5) {
-        data = "5文字で入力してください";
+        msg = "5文字で入力してください";
         rtn = false;
     }
 
     var index = poke_data.findIndex(x => x.name.japanese === poke_name);
 
     if (rtn && index == -1) {
-        data = "そのポケモンはいません";
+        msg = "そのポケモンはいません";
         rtn = false;
     }
 
     if (!rtn) {
-        $("#msg").html(data);
+        $("#msg").html(msg);
         $("#msg_container").removeClass("collapse");
         $("#msg").removeClass("transparent");
         await sleep(1500);
