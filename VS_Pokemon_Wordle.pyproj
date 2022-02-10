@@ -28,7 +28,8 @@
   <ItemGroup>
     <Content Include="static\css\style.css" />
     <Content Include="static\js\script.js" />
-    <Content Include="templates\index.html" />
+    <Content Include="templates\game.html" />
+    <Content Include="templates\home.html" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="static\" />

@@ -1,5 +1,5 @@
 from flask import Flask, render_template, request
-from flask_socketio import SocketIO, send, emit
+from flask_socketio import SocketIO, send, emit, join_room, leave_room
 import os
 
 app = Flask(__name__)
@@ -20,11 +20,29 @@ correct = [0, 0]
 
 @app.route('/')
 def index():
-    return render_template('index.html')
+    return render_template('home.html')
+
+@app.route('/game', methods=["POST"])
+def game():
+    #user_name = request.form["user_name"]
+    #room = request.form["room_code"]
+    #join_room(room)
+    return render_template('game.html')
+
+
+@socketio.on('join')
+def on_join():
+    print(request.form["user_name"])
+    print(request.form["room_code"])
+    room = request.form["room_code"]
+    join_room(room)
+    #send(username + ' has entered the room.', to=room)
+
 
 #ユーザーが新しく接続すると実行
 @socketio.on('connect')
-def connect(auth):
+def connect():
+    print('test---------------')
     global user_count, p1_id, p2_id, p1_poke_name, p2_poke_name, is_in_game
     user_count += 1
 
@@ -47,6 +65,7 @@ def connect(auth):
 #ユーザーの接続が切断すると実行
 @socketio.on('disconnect')
 def disconnect():
+    print('disconnect---------------')
     global user_count, p1_poke_name, p2_poke_name, is_in_game, p1_id, p2_id
     user_count -= 1
 
