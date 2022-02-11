@@ -369,13 +369,13 @@ input[type="number"]::-webkit-inner-spin-button {
 
     .row_l {
         display: flex;
-        justify-content: left;
+        justify-content: flex-start;
         padding-left: 4px;
     }
 
     .row_r {
         display: flex;
-        justify-content: right;
+        justify-content: flex-end;
         padding-right: 4px;
     }
 
