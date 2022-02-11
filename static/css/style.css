@@ -270,7 +270,7 @@ input:focus::placeholder {
 
 
 
-#login_container {
+.modal_container {
     position: fixed;
     top: 0;
     right: 0;
@@ -283,7 +283,7 @@ input:focus::placeholder {
     transition: all .5s;
 }
 
-#login {
+.modal {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -412,4 +412,16 @@ input[type="number"]::-webkit-inner-spin-button {
         margin-top: 7px;
         width: 34px;
     }
+}
+
+
+.material-icons.icon {
+    font-size: 28px;
+    font-family: 'Material Icons Outlined';
+    display: inline-flex;
+    vertical-align: middle;
+}
+
+#opponent_exit_msg {
+    font-size: 20px;
 }

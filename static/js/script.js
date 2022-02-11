@@ -49,14 +49,8 @@ socket.on('update_info_join', function (data) {
 
 
 //退出時情報更新
-socket.on('update_info_exit', function (data) {
-    $('#login_container').addClass('transparent');
-
-    room_code = data.room_code;
-    p1_id = data.p1_id;
-    p2_id = data.p2_id;
-
-    $('#room_info').text('部屋コード：' + room_code + '　現在の接続者数：' + user_count);
+socket.on('opponent_exit', function (data) {
+    $('#opponent_exit_container').removeClass('transparent');
 });
 
 
@@ -366,12 +360,20 @@ $(document).on('click', '#btn_reset', function () {
     socket.emit('btn_reset_click', { room_code: room_code });
 });
 
-
 //答えを見るボタンクリック
 $(document).on('click', '.upper_anser', function () {
     socket.emit('see_answer', { room_code: room_code });
 });
 
+//対戦相手が退出時のOKボタンクリック
+$(document).on('click', '#btn_opponent_exit', function () {
+    location.reload();
+});
+
+//EXITボタンクリック
+$(document).on('click', '#btn_exit', function () {
+    location.reload();
+});
 
 
 async function reset_row() {

@@ -11,7 +11,8 @@
     <script src="static/js/script.js" charset="shift_jis"></script>
     <link href="static/img/32.png" rel="icon shortcut" sizes="3232">
     <link href="static/img/192.png" rel="apple-touch-icon">
-
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons%7CMaterial+Icons+Outlined" rel="stylesheet">
     <!-- FB Meta Tags -->
     <meta property="og:url" content="https://vs-pokemon-wordle.herokuapp.com/">
     <meta property="og:type" content="website">
@@ -47,11 +48,11 @@
         </div>
     </div>
 
-    <div id="login_container">
+    <div id="login_container" class="modal_container">
         <div id="gray_container">
         </div>
 
-        <div id="login">
+        <div id="login" class="modal">
             <input id="txt_user_name" class="textbox login_obj" type="text" name="user_name" placeholder="ユーザ名" maxlength="8" />
             <input id="txt_room_code" class="textbox login_obj" type="number" name="room_code" placeholder="4桁の部屋コード" oninput="slice_max_length(this, 4)" pattern="\d*" />
             <input id="btn_join" type="submit" value="JOIN" class="btn login_obj">
@@ -92,7 +93,7 @@
 
     <div id="input_container">
         <div>
-            <input id="txt_poke_name" class="textbox" type="text" placeholder="ポケモンの名前" disabled />
+            <input id="txt_poke_name" class="textbox" type="text" placeholder="ポケモンの名前" maxlength="5" disabled />
             <input id="btn" type="button" value="ENTER" class="btn" disabled>
         </div>
     </div>
@@ -108,8 +109,14 @@
         </div>
     </div>
 
-    <div id="notice_exit">
-        <!--<input id="btn_join" type="submit" value="JOIN" class="btn login_obj">-->
+    <div id="opponent_exit_container" class="modal_container transparent">
+        <div id="gray_container">
+        </div>
+
+        <div id="opponent_exit" class="modal">
+            <div id="opponent_exit_msg"><span class="material-icons icon">report_problem</span>対戦相手が退出しました</div>
+            <input id="btn_opponent_exit" type="submit" value="OK" class="btn login_obj">
+        </div>
     </div>
 </body>
 </html>

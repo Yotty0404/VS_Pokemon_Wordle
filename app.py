@@ -1,5 +1,5 @@
 from flask import Flask, render_template, request
-from flask_socketio import SocketIO, send, emit, join_room, leave_room, rooms
+from flask_socketio import SocketIO, send, emit, join_room, leave_room, rooms, close_room
 import os
 from collections import defaultdict
 
@@ -39,25 +39,7 @@ def index():
 #ユーザーが新しく接続すると実行
 @socketio.on('connect')
 def connect():
-    print('connect---------------')
-    #global user_count, p1_id, p2_id, p1_poke_name, p2_poke_name, is_in_game
-    #user_count += 1
-
-    #if user_count == 1:
-    #    p1_poke_name = ""
-    #    p2_poke_name = ""
-    #    p1_id = request.sid
-    #    is_in_game = False
-
-    #elif user_count == 2:
-    #    p2_poke_name = ""
-    #    p2_id = request.sid
-    #    is_in_game = False
-
-    #接続者数の更新（全員向け）
-    #emit('count_update', {'user_count': user_count}, broadcast=True)
-    #emit('info_update', {'p1_id': p1_id, 'p2_id': p2_id}, broadcast=True)
-
+    pass
 
 #ユーザーの接続が切断すると実行
 @socketio.on('disconnect')
@@ -75,12 +57,13 @@ def disconnect():
     if room_code == '':
         return()
 
+    emit('opponent_exit', broadcast=True, to=room_code)
+
     print('room_code:' + room_code)
-    leave_room(room_code)
-    d_user_count[room_code] -= 1
+    close_room(room_code)
+    d_user_count[room_code] = 0
     d_info[room_code] = GameInfo()
 
-    emit('info_update_exit', {'room_code': room_code, 'user_count': d_user_count[room_code], 'p1_id': p1_id, 'p2_id': p2_id}, broadcast=True, to=room_code)
 
 
 
@@ -153,18 +136,6 @@ def btn_click(json):
         if is_p1:
             target_poke_name = temp_info.p2_poke_name
             correct_index = 0
-            #for i in range(5):
-            #    if p2_poke_name[i] == poke_name[i]:
-            #        judges.append(1)
-            #    elif poke_name[i] in p2_poke_name:
-            #        judges.append(2)
-            #    else:
-            #        judges.append(0)
-
-            #emit('judge', {'is_p1': is_p1,'poke_name':poke_name, 'judges':judges }, broadcast=True)
-
-            #if max(judges) == min(judges) == 1:
-            #    correct[0] = 1
         else:
             target_poke_name = temp_info.p1_poke_name
             correct_index = 1
