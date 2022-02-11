@@ -50,7 +50,7 @@ input, button, select, textarea {
     flex-wrap: wrap;
     justify-content: space-between;
     width: 90vw;
-    max-width: 550px;
+    max-width: 500px;
     margin: 0 auto;
     height: calc(100vh - 243px);
 }
@@ -323,7 +323,7 @@ input[type="number"]::-webkit-inner-spin-button {
 
 #yajirushi_container {
     width: 90vw;
-    max-width: 550px;
+    max-width: 500px;
     position: absolute;
     display: flex;
     justify-content: center;
@@ -364,6 +364,10 @@ input[type="number"]::-webkit-inner-spin-button {
         font-size: 14px;
         height: 30px;
         width: 55px;
+    }
+
+    .answer {
+        height: 32px;
     }
 
     .tile {
