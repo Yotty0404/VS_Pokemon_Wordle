@@ -77,7 +77,7 @@ socket.on('update_answer', function (data) {
 socket.on('battle_start', async function () {
     is_in_game = true;
     is_end = false;
-/*    $('#turn').html('Player1のターン');*/
+    /*    $('#turn').html('Player1のターン');*/
 
     //プレイヤー判断
     if (p1_id == socket.id) {
@@ -159,6 +159,7 @@ socket.on('end', async function (data) {
         else if (p2_id == socket.id) {
             msg = 'LOSE';
             $('#battle_start').addClass('lose');
+            $('#upper_answer_l').removeClass('transparent');
         }
     }
     else if (data.correct[1] == 1) {
@@ -166,6 +167,7 @@ socket.on('end', async function (data) {
         if (p1_id == socket.id) {
             msg = 'LOSE';
             $('#battle_start').addClass('lose');
+            $('#upper_answer_r').removeClass('transparent');
         }
         else if (p2_id == socket.id) {
             msg = 'WIN!';
@@ -185,6 +187,7 @@ socket.on('end', async function (data) {
     await sleep(1000);
     $('#battle_start').removeClass('win');
     $('#battle_start').removeClass('lose');
+    $('#btn_exit').prop('disabled', false);
     $('#btn_reset').prop('disabled', false);
 });
 
@@ -193,12 +196,30 @@ socket.on('reset', async function (data) {
     reset_row();
     $('#predict_l_container').empty();
     $('#predict_r_container').empty();
-    $('#turn').text('');
+    $('#btn_exit').prop('disabled', true);
     $('#btn_reset').prop('disabled', true);
+    $('#img_yajirushi').removeClass('turn180');
+    $('#upper_answer_l').addClass('transparent');
+    $('#upper_answer_r').addClass('transparent');
+
     is_end = false;
     is_in_game = false;
 });
 
+
+//答えを見る
+socket.on('see_answer', function (data) {
+    $('#upper_answer_l').addClass('transparent');
+    $('#upper_answer_r').addClass('transparent');
+
+    //プレイヤー判断
+    if (p1_id == socket.id) {
+        update_row(data.p2_poke_name, $('#answer_r'));
+    }
+    else if (p2_id == socket.id) {
+        update_row(data.p1_poke_name, $('#answer_l'));
+    }
+});
 
 //---------------------------------------------------------------
 //----クライアントのイベント-------------------------------------
@@ -342,8 +363,16 @@ async function update_tile_by_judge(tile, s, judge) {
 //ENDボタンクリック
 $(document).on('click', '#btn_reset', function () {
     /*    socket.emit('btn_reset_click');*/
-    socket.emit('btn_reset_click', {});
+    socket.emit('btn_reset_click', { room_code: room_code });
 });
+
+
+//答えを見るボタンクリック
+$(document).on('click', '.upper_anser', function () {
+    socket.emit('see_answer', { room_code: room_code });
+});
+
+
 
 async function reset_row() {
     for (var i = 0; i < 5; ++i) {
