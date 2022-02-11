@@ -412,6 +412,12 @@ input[type="number"]::-webkit-inner-spin-button {
         margin-top: 7px;
         width: 34px;
     }
+
+    .upper_anser {
+        width: 145px;
+        height: 29px;
+        line-height: 29px;
+    }
 }
 
 
