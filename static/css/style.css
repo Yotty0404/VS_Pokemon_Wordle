@@ -19,8 +19,21 @@
 
 #header_container2 {
     display: flex;
+    justify-content: center;
+}
+
+#header_container2-2 {
+    height: 40px;
+    width: 450px;
+    display: flex;
+    align-items: center;
     justify-content: space-between;
 }
+
+    #header_container2-2 .btn {
+        height: 30px;
+        width: 70px;
+    }
 
 .info {
     height: 20px;
@@ -31,7 +44,8 @@
     display: flex;
     flex-wrap: wrap;
     justify-content: space-around;
-    width: 550px;
+    width: 90vw;
+    max-width: 550px;
     margin: 0 auto;
     height: calc(100vh - 243px);
 }
@@ -41,11 +55,13 @@
 }
 
 .player {
+    height: 20px;
     text-align: center;
     background-color: rgb(225, 225, 225);
 }
 
 .answer {
+    height: 40px;
     background-color: rgb(225, 225, 225);
     padding-bottom: 2px;
     margin-bottom: 2px;
@@ -136,7 +152,7 @@ input:focus::placeholder {
     border: none;
     cursor: pointer;
     transition: all .3s;
-    z-index: 1000;
+    z-index: 10;
 }
 
     .btn:hover {
@@ -196,6 +212,7 @@ input:focus::placeholder {
     width: 100%;
     top: 0;
     left: 0;
+    z-index: 1000;
 }
 
 #msg {
@@ -238,18 +255,17 @@ input:focus::placeholder {
 
 
 
-/* home */
-
 #login_container {
     position: fixed;
     top: 0;
     right: 0;
     bottom: 0;
     left: 0;
-    z-index: 100;
     display: flex;
     justify-content: center;
     align-items: center;
+    z-index: 100;
+    transition: all .5s;
 }
 
 #login {
@@ -260,15 +276,12 @@ input:focus::placeholder {
     border-radius: 5px;
     padding: 40px;
     max-width: 70%;
+    z-index: 120;
 }
 
 .login_obj {
     width: 85%;
     margin: 10px;
-}
-
-#txt_name {
-    height: 20px;
 }
 
 #gray_container {
@@ -278,14 +291,46 @@ input:focus::placeholder {
     bottom: 0;
     left: 0;
     background-color: rgba(0, 0, 0, 0.6);
-    z-index: 5;
+    z-index: 110;
 }
 
+.txt_error {
+    background-color: rgb(255, 225, 232);
+    border-color: rgb(249, 28, 82);
+}
 
-
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
 
 @media (max-width: 700px) {
     #header {
         font-size: 26px;
     }
+}
+
+
+
+#yajirushi_container {
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 60px;
+}
+
+#img_yajirushi {
+    margin-top: 7px;
+    width: 48px;
+    transition: all 0.5s ease;
+}
+
+.turn180 {
+    transform: rotate(180deg);
+}
+
+.turn360 {
+    transform: rotate(360deg);
 }

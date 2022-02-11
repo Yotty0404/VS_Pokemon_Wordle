@@ -15,14 +15,68 @@
     <div id="header_container">
         <div id="header">VS POKEMON WORDLE</div>
     </div>
-    <div id="login_container">
-        <form id="login" action="/game" method="POST">
-            <input id="txt_name" class="textbox login_obj" type="text" name="user_name" placeholder="ユーザ名" maxlength="8" />
-            <input id="txt_room_code" class="textbox login_obj" type="text" name="room_code" placeholder="4桁の部屋コード" maxlength="4" />
-            <input id="btn" type="submit" value="JOIN" class="btn login_obj">
-        </form>
+    <div id="header_container2">
+        <div id="header_container2-2">
+            <!--<div>-->
+                <!--<p class="info"><span id="room_code" class="info"></span><span id="user_count"></span>人</p>-->
+                <!--<p id="id1"></p>-->
+                <!--<p id="id2"></p>-->
+                <!--<p id="player" class="info"></p>-->
+                <!--<p id="turn" class="info"></p>-->
+            <!--</div>-->
+            <input id="btn_exit" type="button" value="EXIT" class="btn" disabled="disabled">
+            <p id="room_info" class="info"></p>
+            <input id="btn_reset" type="button" value="RESET" class="btn" disabled="disabled">
+        </div>
     </div>
 
+    <div id="login_container">
+        <div id="gray_container">
+        </div>
+
+        <div id="login">
+            <input id="txt_user_name" class="textbox login_obj" type="text" name="user_name" placeholder="ユーザ名" maxlength="8" />
+            <input id="txt_room_code" class="textbox login_obj" type="number" name="room_code" placeholder="4桁の部屋コード" oninput="slice_max_length(this, 4)" pattern="\d*" />
+            <input id="btn_join" type="submit" value="JOIN" class="btn login_obj">
+        </div>
+    </div>
+
+    <div id="board_container">
+        <div id="yajirushi_container">
+            <img id="img_yajirushi" src="static/img/yajirushi.png">
+        </div>
+        <div id="board_l" class="board">
+            <div id="player1_name" class="player"></div>
+            <div id="answer_l" class="answer row">
+                <div class="tile"></div>
+                <div class="tile"></div>
+                <div class="tile"></div>
+                <div class="tile"></div>
+                <div class="tile"></div>
+            </div>
+            <div id="predict_l_container" class="predict">
+            </div>
+        </div>
+        <div id="board_r" class="board">
+            <div id="player2_name" class="player"></div>
+            <div id="answer_r" class="answer row">
+                <div class="tile"></div>
+                <div class="tile"></div>
+                <div class="tile"></div>
+                <div class="tile"></div>
+                <div class="tile"></div>
+            </div>
+            <div id="predict_r_container" class="predict">
+            </div>
+        </div>
+    </div>
+
+    <div id="input_container">
+        <div>
+            <input id="txt_poke_name" class="textbox" type="text" placeholder="ポケモンの名前" disabled />
+            <input id="btn" type="button" value="ENTER" class="btn" disabled>
+        </div>
+    </div>
 
     <div id="battle_start_container" class="collapse">
         <div id="battle_start" class="transparent">
@@ -33,9 +87,6 @@
     <div id="msg_container" class="collapse">
         <div id="msg" class="transparent">
         </div>
-    </div>
-
-    <div id="gray_container">
     </div>
 </body>
 </html>
