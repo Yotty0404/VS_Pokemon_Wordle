@@ -363,8 +363,8 @@ input[type="number"]::-webkit-inner-spin-button {
     }
 
     .tile {
-        height: 18px;
-        width: 18px;
+        height: 23px;
+        width: 23px;
     }
 
     .row_l {
