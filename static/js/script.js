@@ -100,7 +100,7 @@ socket.on('battle_start', async function () {
 //判定を反映
 socket.on('judge', function (data) {
     if (data.is_p1) {
-        var row = $('<div class="row">');
+        var row = $('<div class="row_r">');
         $('#predict_r_container').append(row);
         for (var i = 0; i < 5; i++) {
             row.append('<div class="tile"></div>');
@@ -118,7 +118,7 @@ socket.on('judge', function (data) {
         $('#img_yajirushi').addClass('turn180');
     }
     else {
-        var row = $('<div class="row">');
+        var row = $('<div class="row_l">');
         $('#predict_l_container').append(row);
         for (var i = 0; i < 5; i++) {
             row.append('<div class="tile"></div>');

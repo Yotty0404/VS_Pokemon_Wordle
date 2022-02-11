@@ -43,7 +43,7 @@
 #board_container {
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-around;
+    justify-content: space-between;
     width: 90vw;
     max-width: 550px;
     margin: 0 auto;
@@ -67,10 +67,16 @@
     margin-bottom: 2px;
 }
 
-.row {
+.row_l {
     display: flex;
     justify-content: center;
 }
+
+.row_r {
+    display: flex;
+    justify-content: center;
+}
+
 
 .tile {
     font-weight: bold;
@@ -305,15 +311,10 @@ input[type="number"]::-webkit-inner-spin-button {
     margin: 0;
 }
 
-@media (max-width: 700px) {
-    #header {
-        font-size: 26px;
-    }
-}
-
-
 
 #yajirushi_container {
+    width: 90vw;
+    max-width: 550px;
     position: absolute;
     display: flex;
     justify-content: center;
@@ -333,4 +334,48 @@ input[type="number"]::-webkit-inner-spin-button {
 
 .turn360 {
     transform: rotate(360deg);
+}
+
+
+
+
+
+
+@media (max-width: 700px) {
+    #header {
+        font-size: 26px;
+    }
+
+    #btn {
+        font-size: 14px;
+        width: 55px;
+    }
+
+    #header_container2-2 .btn {
+        font-size: 14px;
+        height: 30px;
+        width: 55px;
+    }
+
+    .tile {
+        height: 18px;
+        width: 18px;
+    }
+
+    .row_l {
+        display: flex;
+        justify-content: left;
+        padding-left: 4px;
+    }
+
+    .row_r {
+        display: flex;
+        justify-content: right;
+        padding-right: 4px;
+    }
+
+    #img_yajirushi {
+        margin-top: 7px;
+        width: 34px;
+    }
 }
