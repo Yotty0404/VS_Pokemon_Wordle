@@ -2,6 +2,10 @@
     font-family: 'メイリオ', 'Meiryo', sans-serif;
 }
 
+input, button, select, textarea {
+    -webkit-appearance: none;
+}
+
 #header_container {
     display: flex;
     flex-wrap: wrap;
