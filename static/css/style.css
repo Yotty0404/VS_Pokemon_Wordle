@@ -85,7 +85,7 @@ input, button, select, textarea {
 
 .tile {
     font-weight: bold;
-    border: solid 3px #000000;
+    border: solid 1px #838383;
     height: 30px;
     width: 30px;
     display: flex;
