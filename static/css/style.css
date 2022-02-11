@@ -82,10 +82,14 @@ input, button, select, textarea {
     justify-content: center;
 }
 
+.answer_tile {
+    border: solid 1px #838383 !important;
+}
+
 
 .tile {
     font-weight: bold;
-    border: solid 1px #838383;
+    border: solid 1px transparent;
     height: 30px;
     width: 30px;
     display: flex;
