@@ -246,6 +246,12 @@ $(document).on('click', '#btn_join', function () {
         return;
     }
 
+    $('#twitter').attr('href', $('#twitter').attr('href').replace('{room_code}', temp_room_code));
+    $('#line').attr('href', $('#line').attr('href').replace('{room_code}', temp_room_code));
+    $('#twitter').removeClass('collapse');
+    $('#line').removeClass('collapse');
+
+
     socket.emit('join', { user_name: temp_user_name, room_code: temp_room_code });
 });
 
