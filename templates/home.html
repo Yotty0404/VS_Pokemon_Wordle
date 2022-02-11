@@ -53,14 +53,10 @@
         </div>
 
         <div id="login" class="modal">
-            <a href="https://twitter.com/share?text=テキストテキスト%0a改行もできるし%20スペースも&url=https://www.url.url/&hashtags=タグ,二つ目" onClick="window.open(encodeURI(decodeURI(this.href)), 'tweetwindow', 'width=650, height=470, personalbar=0, toolbar=0, scrollbars=1, sizable=1'); return false;" rel="nofollow" class="twitter-link">
+            <a href="https://twitter.com/share?text=部屋コード%0a1234%0a%0a&url=https://vs-pokemon-wordle.herokuapp.com/%0a%0a&hashtags=VsPokemonWordle" onClick="window.open(encodeURI(decodeURI(this.href)), 'tweetwindow', 'width=650, height=470, personalbar=0, toolbar=0, scrollbars=1, sizable=1'); return false;" rel="nofollow" class="twitter-link">
                 twitterでshare
             </a>
-            <a href="https://twitter.com/share?ref_src=twsrc%5Etfw" class="twitter-share-button" data-text="バズブログです！%0aよろしく" data-show-count="false">Tweet</a>
-            <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
-            <a class="line btn" href="http://line.me/R/msg/text/?[任意のテキスト][共有したいURL]">LINEで送る</a>
-            <div class="line-it-button" data-lang="ja" data-type="share-b" data-env="REAL" data-url="http://www.a-one-net.com/" data-color="default" data-size="small" data-count="false" data-ver="3" style="display: none;"></div>
-            <script src="https://www.line-website.com/social-plugins/js/thirdparty/loader.min.js" async="async" defer="defer"></script>
+            <a class="line btn" href="http://line.me/R/msg/text/?テキスト%0a改行もできるし%20スペースも%0ahttps://vs-pokemon-wordle.herokuapp.com/">LINEで送る</a>
             <input id="txt_user_name" class="textbox login_obj" type="text" name="user_name" placeholder="ユーザ名" maxlength="8" />
             <input id="txt_room_code" class="textbox login_obj" type="number" name="room_code" placeholder="4桁の部屋コード" oninput="slice_max_length(this, 4)" pattern="\d*" />
             <input id="btn_join" type="submit" value="JOIN" class="btn login_obj">
