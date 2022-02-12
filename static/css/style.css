@@ -426,4 +426,8 @@ input[type="number"]::-webkit-inner-spin-button {
         height: 29px;
         line-height: 29px;
     }
+
+    #txt_poke_name {
+        width: 250px;
+    }
 }
