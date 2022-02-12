@@ -86,7 +86,6 @@ input, button, select, textarea {
     border: solid 1px #838383 !important;
 }
 
-
 .tile {
     font-weight: bold;
     border: solid 1px transparent;
@@ -105,7 +104,6 @@ input, button, select, textarea {
     opacity: 0;
 }
 
-
 .predict {
     height: calc(100vh - 260px);
     overflow-y: scroll;
@@ -114,8 +112,6 @@ input, button, select, textarea {
     .predict::-webkit-scrollbar {
         display: none;
     }
-
-
 
 #input_container {
     display: flex;
@@ -127,8 +123,6 @@ input, button, select, textarea {
     bottom: 20px;
     width: 100%;
 }
-
-
 
 .textbox {
     border: solid 2px #000000;
@@ -147,7 +141,6 @@ input, button, select, textarea {
         .textbox:disabled::placeholder {
             color: #C0C0C0;
         }
-
 
 input:focus::placeholder {
     color: transparent;
@@ -179,8 +172,6 @@ input:focus::placeholder {
         background: #AAAAAA;
         cursor: default;
     }
-
-
 
 #battle_start_container {
     /*    position: fixed;*/
@@ -216,9 +207,7 @@ input:focus::placeholder {
     visibility: collapse;
 }
 
-
 #msg_container {
-    /*    position: fixed;*/
     position: absolute;
     display: flex;
     justify-content: space-around;
@@ -256,19 +245,13 @@ input:focus::placeholder {
     color: white;
 }
 
-
 .win {
     text-shadow: 3px 3px 0 #EC654A !important;
 }
 
-
 .lose {
     text-shadow: 3px 3px 0 #4695B2 !important;
 }
-
-
-
-
 
 .modal_container {
     position: fixed;
@@ -320,7 +303,6 @@ input[type="number"]::-webkit-inner-spin-button {
     margin: 0;
 }
 
-
 #yajirushi_container {
     width: 90vw;
     max-width: 500px;
@@ -345,8 +327,6 @@ input[type="number"]::-webkit-inner-spin-button {
     transform: rotate(360deg);
 }
 
-
-
 .upper_anser {
     position: absolute;
     border-radius: 2px;
@@ -368,8 +348,36 @@ input[type="number"]::-webkit-inner-spin-button {
         background-color: rgba(43, 90, 44, 0.7);
     }
 
+.material-icons.icon {
+    font-size: 28px;
+    font-family: 'Material Icons Outlined';
+    display: inline-flex;
+    vertical-align: middle;
+}
 
+#opponent_exit_msg {
+    font-size: 20px;
+}
 
+#room_info_container {
+    display: flex;
+}
+
+.snsicon {
+    font-size: 24px;
+    color: rgb(109, 109, 109);
+    text-decoration: none;
+    margin-left: 7px;
+    transition: all .3s;
+}
+
+#twitter:hover {
+    color: rgb(89, 138, 212);
+}
+
+#line:hover {
+    color: rgb(6,199,85);
+}
 
 @media (max-width: 700px) {
     #header {
@@ -418,40 +426,4 @@ input[type="number"]::-webkit-inner-spin-button {
         height: 29px;
         line-height: 29px;
     }
-}
-
-
-.material-icons.icon {
-    font-size: 28px;
-    font-family: 'Material Icons Outlined';
-    display: inline-flex;
-    vertical-align: middle;
-}
-
-#opponent_exit_msg {
-    font-size: 20px;
-}
-
-
-
-
-#room_info_container {
-    display: flex;
-}
-
-
-.snsicon {
-    font-size: 24px;
-    color: rgb(109, 109, 109);
-    text-decoration: none;
-    margin-left: 7px;
-    transition: all .3s;
-}
-
-#twitter:hover {
-    color: rgb(89, 138, 212);
-}
-
-#line:hover {
-    color: rgb(6,199,85);
 }

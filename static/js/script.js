@@ -5,7 +5,6 @@ $.getJSON('./static/json/poke.json', function (data) {
     poke_data = data;
 });
 
-
 var socket = io();
 
 var room_code = '';
@@ -14,18 +13,10 @@ var p2_id = '';
 var is_in_game = false;
 var is_end = false;
 
-//接続者数の更新
-//socket.on('count_update', function (data) {
-//    $('#user_count').html(data.user_count);
-//});
-
-
-
 //満室エラー
 socket.on('full_error', function (data) {
     show_message('満室です');
 });
-
 
 //入室時情報更新
 socket.on('update_info_join', function (data) {
@@ -46,13 +37,10 @@ socket.on('update_info_join', function (data) {
     }
 });
 
-
-
 //退出時情報更新
 socket.on('opponent_exit', function (data) {
     $('#opponent_exit_container').removeClass('transparent');
 });
-
 
 //正解を更新
 socket.on('update_answer', function (data) {
@@ -200,7 +188,6 @@ socket.on('reset', async function (data) {
     is_in_game = false;
 });
 
-
 //答えを見る
 socket.on('see_answer', function (data) {
     $('#upper_answer_l').addClass('transparent');
@@ -218,7 +205,6 @@ socket.on('see_answer', function (data) {
 //---------------------------------------------------------------
 //----クライアントのイベント-------------------------------------
 //---------------------------------------------------------------
-
 
 //JOINボタンクリック
 $(document).on('click', '#btn_join', function () {
@@ -324,7 +310,6 @@ $(document).on('keydown', '#txt_poke_name', function (event) {
     }
 });
 
-
 function sleep(ms) {
     return new Promise(resolve => setTimeout(resolve, ms));
 }
@@ -381,7 +366,6 @@ $(document).on('click', '#btn_exit', function () {
     document.location.href = 'https://www.vs-pokemon-wordle.com/';
 });
 
-
 async function reset_row() {
     for (var i = 0; i < 5; ++i) {
         reset_tile($($('#answer_l').children()[i]))
@@ -396,9 +380,6 @@ async function reset_tile(tile) {
     tile.text('');
     tile.removeClass('tile_disappear');
 }
-
-
-
 
 function slice_max_length(elem, maxLength) {
     elem.value = elem.value.slice(0, maxLength);

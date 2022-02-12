@@ -23,15 +23,6 @@ d_info = defaultdict(GameInfo)
 app = Flask(__name__)
 socketio = SocketIO(app)
 
-
-#p1_id = ""
-#p2_id = ""
-#p1_poke_name = ""
-#p2_poke_name = ""
-
-#is_in_game = False
-
-
 @app.route("/", methods=["GET"])
 def get_user():
     room_code = ''
@@ -48,7 +39,6 @@ def get_user():
     else:
         return render_template('home.html')
 
-
 #ユーザーが新しく接続すると実行
 @socketio.on('connect')
 def connect():
@@ -57,7 +47,6 @@ def connect():
 #ユーザーの接続が切断すると実行
 @socketio.on('disconnect')
 def disconnect():
-    print('disconnect---------------')
     global d_user_count, d_info
 
     room_code = ''
@@ -72,23 +61,15 @@ def disconnect():
 
     emit('opponent_exit', broadcast=True, to=room_code)
 
-    print('room_code:' + room_code)
     close_room(room_code)
     d_user_count[room_code] = 0
     d_info[room_code] = GameInfo()
-
-
-
-
 
 @socketio.on('join')
 def join(json):
     global d_user_count, d_info
     room_code = json["room_code"]
     user_name = json["user_name"]
-    #print('room_code:' + room_code)
-    #print('user_name:' + user_name)
-    #print(d_user_count[room_code])
 
     #満室だった場合
     if d_user_count[room_code] >= 2:
@@ -116,16 +97,13 @@ def join(json):
 
     d_info[room_code] = temp_info
 
-
 #ENTERボタンクリックで実行
 @socketio.on('btn_click')
 def btn_click(json):
-    #global p1_poke_name, p2_poke_name, is_in_game, correct
     global d_info
     room_code = json["room_code"]
     is_p1 = json["is_p1"]
     poke_name = json["poke_name"]
-    #print('room_code:' + room_code)
 
     temp_info = d_info[room_code]
     
@@ -179,7 +157,6 @@ def btn_reset_click(json):
     global d_info
     room_code = json["room_code"]
     temp_info = d_info[room_code]
-    print(room_code)
 
     temp_info.correct = [0, 0]
     temp_info.p1_poke_name = ""
@@ -197,7 +174,6 @@ def see_answer(json):
     temp_info = d_info[room_code]
 
     emit('see_answer', {'p1_poke_name' : temp_info.p1_poke_name, 'p2_poke_name' : temp_info.p2_poke_name})
-
 
 
 if __name__ == '__main__':
