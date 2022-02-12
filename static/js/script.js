@@ -186,6 +186,8 @@ socket.on('reset', async function (data) {
 
     is_end = false;
     is_in_game = false;
+
+    show_message('自分のポケモンを入力してください');
 });
 
 //答えを見る
