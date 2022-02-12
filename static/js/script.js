@@ -373,12 +373,12 @@ $(document).on('click', '.upper_anser', function () {
 
 //対戦相手が退出時のOKボタンクリック
 $(document).on('click', '#btn_opponent_exit', function () {
-    location.reload();
+    document.location.href = 'https://vs-pokemon-wordle.herokuapp.com/';
 });
 
 //EXITボタンクリック
 $(document).on('click', '#btn_exit', function () {
-    location.reload();
+    document.location.href = 'https://vs-pokemon-wordle.herokuapp.com/';
 });
 
 
