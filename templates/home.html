@@ -46,8 +46,8 @@
             <input id="btn_exit" type="button" value="EXIT" class="btn" disabled="disabled">
             <div id="room_info_container">
                 <p id="room_info" class="info"></p>
-                <a id="twitter" class="fa-brands fa-twitter-square snsicon collapse" href="https://twitter.com/share?text=部屋コード%0a{room_code}%0a%0a&url=https://vs-pokemon-wordle.herokuapp.com/%0a%0a&hashtags=VsPokemonWordle" onClick="window.open(encodeURI(decodeURI(this.href)), 'tweetwindow', 'width=650, height=470, personalbar=0, toolbar=0, scrollbars=1, sizable=1'); return false;" rel="nofollow"></a>
-                <a id="line" class="fa-brands fa-line snsicon collapse" href="http://line.me/R/msg/text/?部屋コード%0a{room_code}%0a%0ahttps://vs-pokemon-wordle.herokuapp.com/"></a>
+                <a id="twitter" class="fa-brands fa-twitter-square snsicon collapse" href="https://twitter.com/share?text=部屋コード%0a{room_code}%0a%0a&url=https://vs-pokemon-wordle.herokuapp.com/?room_code={room_code}%0a%0a&hashtags=VsPokemonWordle" onClick="window.open(encodeURI(decodeURI(this.href)), 'tweetwindow', 'width=650, height=470, personalbar=0, toolbar=0, scrollbars=1, sizable=1'); return false;" rel="nofollow"></a>
+                <a id="line" class="fa-brands fa-line snsicon collapse" href="http://line.me/R/msg/text/?部屋コード%0a{room_code}%0a%0ahttps://vs-pokemon-wordle.herokuapp.com/?room_code={room_code}"></a>
             </div>
             <input id="btn_reset" type="button" value="RESET" class="btn" disabled="disabled">
         </div>
@@ -59,7 +59,7 @@
 
         <div id="login" class="modal">
             <input id="txt_user_name" class="textbox login_obj" type="text" name="user_name" placeholder="ユーザ名" maxlength="8" />
-            <input id="txt_room_code" class="textbox login_obj" type="number" name="room_code" placeholder="4桁の部屋コード" oninput="slice_max_length(this, 4)" pattern="\d*" />
+            <input id="txt_room_code" class="textbox login_obj" type="number" name="room_code" placeholder="4桁の部屋コード" oninput="slice_max_length(this, 4)" pattern="\d*" value={{ room_code }}>
             <input id="btn_join" type="submit" value="JOIN" class="btn login_obj">
         </div>
     </div>

@@ -32,9 +32,22 @@ socketio = SocketIO(app)
 #is_in_game = False
 
 
-@app.route('/')
-def index():
-    return render_template('home.html')
+@app.route("/", methods=["GET"])
+def get_user():
+    room_code = ''
+
+    try:
+        req = request.args
+        room_code = req.get("room_code")
+    except:
+        return render_template('home.html')
+
+    if room_code != '':
+        return render_template('home.html', room_code = room_code)
+
+    else:
+        return render_template('home.html')
+
 
 #ユーザーが新しく接続すると実行
 @socketio.on('connect')
