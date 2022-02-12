@@ -1,7 +1,7 @@
 ﻿var poke_data = [];
 
 //json取得
-$.getJSON('./static/json/pokedex.json', function (data) {
+$.getJSON('./static/json/poke.json', function (data) {
     poke_data = data;
 });
 
@@ -303,7 +303,7 @@ async function check_poke_name(poke_name) {
         rtn = false;
     }
 
-    var index = poke_data.findIndex(x => x.name.japanese === poke_name);
+    var index = poke_data.findIndex(x => x.name === poke_name);
 
     if (rtn && index == -1) {
         msg = 'そのポケモンはいません';
