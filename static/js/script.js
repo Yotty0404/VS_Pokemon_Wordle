@@ -368,6 +368,16 @@ $(document).on('click', '#btn_exit', function () {
     document.location.href = 'https://www.vs-pokemon-wordle.com/';
 });
 
+//?ボタンクリック
+$(document).on('click', '.btn_help', function () {
+    $('#help_container').removeClass('transparent');
+});
+
+//×ボタンクリック
+$(document).on('click', '#help_btn_close', function () {
+    $('#help_container').addClass('transparent');
+});
+
 async function reset_row() {
     for (var i = 0; i < 5; ++i) {
         reset_tile($($('#answer_l').children()[i]))

@@ -1,4 +1,4 @@
-﻿html {
+﻿﻿html {
     font-family: 'メイリオ', 'Meiryo', sans-serif;
 }
 
@@ -15,7 +15,7 @@ input, button, select, textarea {
 
 #header {
     height: 45px;
-    width: 450px;
+    width: 100%;
     text-align: center;
     font-size: 33px;
     font-weight: 700;
@@ -39,6 +39,19 @@ input, button, select, textarea {
         height: 30px;
         width: 70px;
     }
+
+#header_btn_help {
+    position: absolute;
+    right: 0;
+    font-size: 28px;
+    color: #000000;
+    border-radius: 50%;
+    border: none;
+    cursor: pointer;
+    transition: all .3s;
+    padding: 2px;
+    margin: 6px 10px 0px 0px;
+}
 
 .info {
     height: 20px;
@@ -100,7 +113,7 @@ input, button, select, textarea {
 }
 
 .tile_disappear {
-    transform: rotate3d(-1, 0, 0, 100deg); /*奥行きをもたせて回転*/
+    transform: rotate3d(-1, 0, 0, 100deg);
     opacity: 0;
 }
 
@@ -174,7 +187,6 @@ input:focus::placeholder {
     }
 
 #battle_start_container {
-    /*    position: fixed;*/
     position: absolute;
     display: flex;
     justify-content: space-around;
@@ -253,6 +265,10 @@ input:focus::placeholder {
     text-shadow: 3px 3px 0 #4695B2 !important;
 }
 
+#login {
+    padding-top: 20px;
+}
+
 .modal_container {
     position: fixed;
     top: 0;
@@ -273,7 +289,8 @@ input:focus::placeholder {
     background-color: white;
     border-radius: 5px;
     padding: 40px;
-    max-width: 70%;
+    max-width: 300px;
+    width: 70%;
     z-index: 120;
 }
 
@@ -282,7 +299,7 @@ input:focus::placeholder {
     margin: 10px;
 }
 
-#gray_container {
+.gray_container {
     position: fixed;
     top: 0;
     right: 0;
@@ -338,9 +355,9 @@ input[type="number"]::-webkit-inner-spin-button {
     cursor: pointer;
     transition: all .3s;
     display: inline-block;
-    color: #ffffff; /* 文字の色 */
-    font-size: 16px; /* 文字のサイズ */
-    letter-spacing: 1px; /* 文字間 */
+    color: #ffffff;
+    font-size: 16px;
+    letter-spacing: 1px;
     text-shadow: 5px 5px 8px #999999, -5px 5px 8px #999999, 5px -5px 8px #999999, -5px -5px 8px #999999, 5px 0px 8px #999999, 0px 5px 8px #999999, -5px 0px 8px #999999, 0px -5px 8px #999999; /* 文字の影 */
 }
 
@@ -379,9 +396,90 @@ input[type="number"]::-webkit-inner-spin-button {
     color: rgb(6,199,85);
 }
 
+#help {
+    padding: 0px 0px 5px 0px;
+    max-height: 90%;
+    max-width: 420px;
+    width: 85%;
+}
+
+#help_header {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+
+#help_header_title {
+    border-bottom: 2px solid rgb(225, 225, 225);
+    font-size: 21px;
+    font-weight: 700;
+    width: 95%;
+    text-align: center;
+    height: 28px;
+    margin-top: 6px;
+}
+
+#help_btn_close {
+    position: absolute;
+    right: 0;
+    font-size: 24px;
+    color: #000000;
+    border-radius: 50%;
+    border: none;
+    cursor: pointer;
+    transition: all .3s;
+    padding: 2px;
+    margin: 2px 4px 0px 0px;
+}
+
+    #help_btn_close:hover {
+        background-color: #DEDEDE;
+    }
+
+#help_body {
+    overflow-y: scroll;
+    -webkit-overflow-scrolling: touch;
+    width: 100%;
+    margin-top: 8px;
+}
+
+.btn_help {
+    font-size: 32px !important;
+    color: #000000;
+    border-radius: 50%;
+    border: none;
+    cursor: pointer;
+    transition: all .3s;
+    padding: 2px;
+}
+
+    .btn_help:hover {
+        background-color: #DEDEDE;
+    }
+
+.help_msg_subject {
+    font-size: 15px;
+    font-weight: 700;
+    margin-left: 10px;
+    margin: 12px 0px 0px 10px;
+}
+
+.help_msg {
+    font-size: 14px;
+    margin-left: 10px;
+}
+
 @media (max-width: 700px) {
     #header {
-        font-size: 26px;
+        font-size: 20px;
+        height: 26px;
+    }
+
+    #header_btn_help {
+        font-size: 24px !important;
+        margin: 0px 6px 0px 0px;
     }
 
     #btn {
@@ -429,5 +527,10 @@ input[type="number"]::-webkit-inner-spin-button {
 
     #txt_poke_name {
         width: 250px;
+    }
+
+    #help_header_title {
+        font-size: 19px;
+        height: 26px;
     }
 }

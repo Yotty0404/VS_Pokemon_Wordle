@@ -32,17 +32,16 @@
 
     <!-- Global site tag (gtag.js) - Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-KP8MHDTX4E"></script>
-    <script>
-        window.dataLayer = window.dataLayer || [];
+    <script>window.dataLayer = window.dataLayer || [];
         function gtag() { dataLayer.push(arguments); }
         gtag('js', new Date());
 
-        gtag('config', 'G-KP8MHDTX4E');
-    </script>
+        gtag('config', 'G-KP8MHDTX4E');</script>
 </head>
 <body>
     <div id="header_container">
         <div id="header">VS POKEMON WORDLE</div>
+        <div id="header_btn_help" class="material-icons-outlined btn_help">help_outline</div>
     </div>
     <div id="header_container2">
         <div id="header_container2-2">
@@ -50,18 +49,19 @@
             <div id="room_info_container">
                 <p id="room_info" class="info"></p>
                 <a id="twitter" class="fa-brands fa-twitter-square snsicon collapse" href="https://twitter.com/intent/tweet?text=部屋コード%0a{room_code}%0a%0ahttps://www.vs-pokemon-wordle.com/?room_code={room_code}%0a%0a&hashtags=VsPokemonWordle" onClick="window.open(encodeURI(decodeURI(this.href)), 'tweetwindow', 'width=650, height=470, personalbar=0, toolbar=0, scrollbars=1, sizable=1'); return false;" rel="nofollow"></a>
-                <a id="line" class="fa-brands fa-line snsicon collapse" href="http://line.me/R/msg/text/?部屋コード%0a{room_code}%0a%0ahttps://www.vs-pokemon-wordle.com/?room_code={room_code}"></a>
+                <a id="line" class="fa-brands fa-line snsicon collapse" href="http://line.me/R/msg/text/?部屋コード%0a{room_code}%0a%0ahttps://www.vs-pokemon-wordle.com/?room_code={room_code}" target="_blank" rel="noopener noreferrer"></a>
             </div>
             <input id="btn_reset" type="button" value="RESET" class="btn" disabled="disabled">
         </div>
     </div>
 
     <div id="login_container" class="modal_container">
-        <div id="gray_container">
+        <div class="gray_container">
         </div>
 
         <div id="login" class="modal">
-            <input id="txt_user_name" class="textbox login_obj" type="text" name="user_name" placeholder="ユーザ名" maxlength="8" />
+            <div id="login_btn_help" class="material-icons-outlined btn_help">help_outline</div>
+            <input id="txt_user_name" class="textbox login_obj" type="text" name="user_name" placeholder="ユーザー名" maxlength="8" />
             <input id="txt_room_code" class="textbox login_obj" type="number" name="room_code" placeholder="4桁の部屋コード" oninput="slice_max_length(this, 4)" pattern="\d*" value={{ room_code }}>
             <input id="btn_join" type="submit" value="JOIN" class="btn login_obj">
         </div>
@@ -118,12 +118,45 @@
     </div>
 
     <div id="opponent_exit_container" class="modal_container transparent">
-        <div id="gray_container">
+        <div class="gray_container">
         </div>
 
         <div id="opponent_exit" class="modal">
             <div id="opponent_exit_msg"><span class="material-icons icon">report_problem</span>対戦相手が退出しました</div>
             <input id="btn_opponent_exit" type="submit" value="OK" class="btn login_obj">
+        </div>
+    </div>
+
+
+    <div id="help_container" class="modal_container transparent">
+        <div class="gray_container">
+        </div>
+
+        <div id="help" class="modal">
+            <div id="help_header">
+                <div id="help_btn_close" class="material-icons-outlined">close</div>
+                <div id="help_header_title">HOW TO PLAY</div>
+            </div>
+            <div id="help_body">
+                <div class="help_msg">相手のポケモンを当てる対戦型Wordleです。</div>
+
+                <div class="help_msg_subject">ログインの仕方</div>
+                <div class="help_msg">好きな「ユーザー名」と「4桁の部屋コード」を入力</div>
+                <div class="help_msg">ログイン後、「Twitter」または「LINE」で知り合いに部屋コードを共有</div>
+
+                <div class="help_msg_subject">ポケモンを決める</div>
+                <div class="help_msg">まずは相手に当てさせる5文字のポケモンを決めよう</div>
+                <div class="help_msg">第8世代(剣盾)のポケモンまで対応</div>
+                <div class="help_msg">2人がポケモンを決めたら対戦開始！</div>
+
+                <div class="help_msg_subject">勝敗の決め方</div>
+                <div class="help_msg">先に相手のポケモンを当てたほうが勝ち</div>
+                <div class="help_msg">先攻プレイヤーがポケモンを正解しても、同じターンで後攻プレイヤーも正解すれば引き分け</div>
+
+                <div class="help_msg_subject">お問い合わせ</div>
+                <a class="help_msg" href="https://twitter.com/YottyPG" target="_blank" rel="noopener noreferrer">@YottyPG</a>
+                <div class="help_msg">要望やバグ報告などあれば、こちらのTwitterアカウントまでお気軽にご連絡ください。</div>
+            </div>
         </div>
     </div>
 </body>
