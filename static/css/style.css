@@ -1,5 +1,5 @@
 ﻿body {
-        font-family: 'メイリオ', 'Meiryo', sans-serif;
+    font-family: 'メイリオ', 'Meiryo', sans-serif;
 }
 
 input, button, select, textarea {
@@ -120,6 +120,7 @@ input, button, select, textarea {
 .predict {
     height: calc(100vh - 260px);
     overflow-y: scroll;
+    -webkit-overflow-scrolling: touch;
 }
 
     .predict::-webkit-scrollbar {
@@ -532,5 +533,9 @@ input[type="number"]::-webkit-inner-spin-button {
     #help_header_title {
         font-size: 19px;
         height: 26px;
+    }
+
+    .predict {
+        height: calc(100vh - 280px);
     }
 }
