@@ -5,6 +5,20 @@ $.getJSON('./static/json/poke.json', function (data) {
     poke_data = data;
 });
 
+//3文字のポケモンデータ
+var poke3_data = [];
+
+//json取得
+$.getJSON('./static/json/poke3.json', function (data) {
+    poke3_data = data;
+});
+
+//3文字のポケモンの名前をランダムに取得
+function get_3poke_name() {
+    var random = Math.floor(Math.random() * poke3_data.length);
+    return poke3_data[random]['name'];
+}
+
 var socket = io();
 
 var room_code = '';
@@ -12,6 +26,7 @@ var p1_id = '';
 var p2_id = '';
 var is_in_game = false;
 var is_end = false;
+var is_high_contrast = false;
 
 //満室エラー
 socket.on('full_error', function (data) {
@@ -208,6 +223,23 @@ socket.on('see_answer', function (data) {
 //----クライアントのイベント-------------------------------------
 //---------------------------------------------------------------
 
+//起動時イベント
+$(document).ready(function () {
+    var cookie = Cookies.get('is_high_contrast')
+    if (cookie === undefined) {
+        return;
+    }
+
+    is_high_contrast = JSON.parse(cookie.toLowerCase());
+    $('#chk_high_contrast_mode').prop('checked', is_high_contrast);
+
+    if (is_high_contrast) {
+        $('#tgl_high_contrast_mode').toggleClass('checked');
+    }
+
+    Cookies.set('is_high_contrast', Cookies.get('is_high_contrast'), { expires: 30 });
+});
+
 //JOINボタンクリック
 $(document).on('click', '#btn_join', function () {
     var temp_user_name = $('#txt_user_name').val();
@@ -342,8 +374,20 @@ async function update_tile_by_judge(tile, s, judge) {
     tile.addClass('tile_disappear');
     await sleep(250);
     tile.text(s);
+
+    //タイルの色を初期化
+    tile.removeClass('judge0');
+    tile.removeClass('judge1');
+    tile.removeClass('judge2');
+    tile.removeClass('judge0_hc');
+    tile.removeClass('judge1_hc');
+    tile.removeClass('judge2_hc');
+
     var class_name = `judge${judge}`;
-    tile.addClass(`judge${judge}`);
+    if (is_high_contrast) {
+        class_name += '_hc';
+    }
+    tile.addClass(class_name);
     tile.removeClass('tile_disappear');
 }
 
@@ -373,9 +417,77 @@ $(document).on('click', '.btn_help', function () {
     $('#help_container').removeClass('transparent');
 });
 
+//設定ボタンクリック
+$(document).on('click', '.btn_settings', function () {
+    $('#settings_container').removeClass('transparent');
+
+    update_row_by_judge(get_3poke_name(), $('#example_row'), [1, 2, 0]);
+});
+
 //×ボタンクリック
-$(document).on('click', '#help_btn_close', function () {
+$(document).on('click', '.window_btn_close', function () {
     $('#help_container').addClass('transparent');
+    $('#settings_container').addClass('transparent');
+
+    //設定画面のタイルの色を初期化
+    $('#example_row').find('div').each(function (index, tile) {
+        $(tile).removeClass('judge0');
+        $(tile).removeClass('judge1');
+        $(tile).removeClass('judge2');
+        $(tile).removeClass('judge0_hc');
+        $(tile).removeClass('judge1_hc');
+        $(tile).removeClass('judge2_hc');
+    })
+});
+
+//スイッチクリック
+$(document).on('click', '.toggle', function (e) {
+    $(this).toggleClass('checked');
+    if (!$(this).children('input').prop('checked')) {
+        $(this).children('input').prop('checked', true);
+    } else {
+        $(this).children('input').prop('checked', false);
+    }
+});
+
+//ハイコントラストモードクリック
+$(document).on('click', '#tgl_high_contrast_mode', function () {
+    //クッキー保存期間:30日間
+    var date = new Date();
+    date.setTime(date.getTime() + (30 * 24 * 60 * 60 * 1000));
+
+    if ($(this).children('input').prop('checked')) {
+        is_high_contrast = true;
+        Cookies.set('is_high_contrast', 'true', { expires: 30 });
+    }
+    else {
+        is_high_contrast = false;
+        Cookies.set('is_high_contrast', 'false', { expires: 30 });
+    }
+
+    update_row_by_judge(get_3poke_name(), $('#example_row'), [1, 2, 0]);
+
+    //すでに表示されているタイルの色を更新
+    $('.predict').children().each(function (index, row) {
+        $(row).children().each(function (index, tile) {
+            if ($(tile).hasClass('judge1')) {
+                $(tile).removeClass('judge1');
+                $(tile).addClass('judge1_hc');
+            }
+            else if ($(tile).hasClass('judge1_hc')) {
+                $(tile).removeClass('judge1_hc');
+                $(tile).addClass('judge1');
+            }
+            else if ($(tile).hasClass('judge2')) {
+                $(tile).removeClass('judge2');
+                $(tile).addClass('judge2_hc');
+            }
+            else if ($(tile).hasClass('judge2_hc')) {
+                $(tile).removeClass('judge2_hc');
+                $(tile).addClass('judge2');
+            }
+        })
+    })
 });
 
 async function reset_row() {

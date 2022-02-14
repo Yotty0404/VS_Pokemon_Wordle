@@ -40,17 +40,17 @@ input, button, select, textarea {
         width: 70px;
     }
 
-#header_btn_help {
+#header_icons {
     position: absolute;
     right: 0;
-    font-size: 28px;
     color: #000000;
     border-radius: 50%;
     border: none;
     cursor: pointer;
     transition: all .3s;
     padding: 2px;
-    margin: 6px 10px 0px 0px;
+    margin: 2px 10px 0px 0px;
+    font-size: 32px !important;
 }
 
 .info {
@@ -72,10 +72,18 @@ input, button, select, textarea {
     width: 50%;
 }
 
+.player_name_contanier {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgb(225, 225, 225);
+}
+
 .player {
     height: 20px;
     text-align: center;
-    background-color: rgb(225, 225, 225);
+    width: 152px;
 }
 
 .answer {
@@ -258,6 +266,21 @@ input:focus::placeholder {
     color: white;
 }
 
+.judge0_hc {
+    background-color: rgb(141, 141, 141);
+    color: white;
+}
+
+.judge1_hc {
+    background-color: rgb(245,121,58);
+    color: white;
+}
+
+.judge2_hc {
+    background-color: rgb(133,192,249);
+    color: white;
+}
+
 .win {
     text-shadow: 3px 3px 0 #EC654A !important;
 }
@@ -397,14 +420,14 @@ input[type="number"]::-webkit-inner-spin-button {
     color: rgb(6,199,85);
 }
 
-#help {
+.window {
     padding: 0px 0px 5px 0px;
     max-height: 90%;
     max-width: 420px;
     width: 85%;
 }
 
-#help_header {
+.window_header {
     width: 100%;
     display: flex;
     align-items: center;
@@ -412,7 +435,7 @@ input[type="number"]::-webkit-inner-spin-button {
     position: relative;
 }
 
-#help_header_title {
+.window_header_title {
     border-bottom: 2px solid rgb(225, 225, 225);
     font-size: 21px;
     font-weight: 700;
@@ -422,7 +445,7 @@ input[type="number"]::-webkit-inner-spin-button {
     margin-top: 6px;
 }
 
-#help_btn_close {
+.window_btn_close {
     position: absolute;
     right: 0;
     font-size: 24px;
@@ -435,18 +458,18 @@ input[type="number"]::-webkit-inner-spin-button {
     margin: 2px 4px 0px 0px;
 }
 
-    #help_btn_close:hover {
+    .window_btn_close:hover {
         background-color: #DEDEDE;
     }
 
-#help_body {
-    overflow-y: scroll;
+.window_body {
+    overflow-y: auto;
     -webkit-overflow-scrolling: touch;
     width: 100%;
     margin-top: 8px;
 }
 
-.btn_help {
+.btn_icon {
     font-size: 32px !important;
     color: #000000;
     border-radius: 50%;
@@ -456,7 +479,7 @@ input[type="number"]::-webkit-inner-spin-button {
     padding: 2px;
 }
 
-    .btn_help:hover {
+    .btn_icon:hover {
         background-color: #DEDEDE;
     }
 
@@ -472,15 +495,112 @@ input[type="number"]::-webkit-inner-spin-button {
     margin-left: 10px;
 }
 
+#settings {
+    max-width: 380px;
+}
+
+.settings_msg_subject {
+    font-size: 16px;
+    font-weight: 700;
+    margin-left: 10px;
+    margin: 14px 0px 0px 10px;
+}
+
+.settings_body_container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.toggle {
+    position: relative;
+    width: 50px;
+    height: 29px;
+    margin: 11px 11px;
+    border-radius: 6px;
+    overflow: hidden;
+    cursor: pointer;
+}
+
+    .toggle input[type=checkbox] {
+        display: none;
+    }
+
+    .toggle:before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        display: block;
+        background: #e9e9eb;
+        -webkit-transition: 0.2s ease-out;
+        transition: 0.2s ease-out;
+    }
+
+    .toggle:after {
+        content: "";
+        position: absolute;
+        top: 3px;
+        left: 3px;
+        width: 23px;
+        height: 23px;
+        display: block;
+        border-radius: 6px;
+        background: #fff;
+        box-shadow: 0 9px 28px -6px rgba(0, 0, 0, 0.3);
+        -webkit-transition: 0.2s ease-out;
+        transition: 0.2s ease-out;
+    }
+
+    .toggle.checked:before {
+        background: #35c759;
+    }
+
+    .toggle.checked:after {
+        left: 23.5px;
+        box-shadow: 0 9px 28px -6px rgba(0, 0, 0, 0.5);
+    }
+
+
+#example_tiles_container {
+    display: flex;
+    width: 60%;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+.example_obj {
+    width: 32%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#example_row {
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+}
+
 @media (max-width: 700px) {
     #header {
-        font-size: 20px;
+        font-size: 18px;
         height: 26px;
     }
 
+    #header_icons {
+        margin: -14px 6px 0px 0px;
+    }
+
     #header_btn_help {
+        margin-right: -12px;
+    }
+
+    .btn_icon {
         font-size: 24px !important;
-        margin: 0px 6px 0px 0px;
     }
 
     #btn {
@@ -501,6 +621,14 @@ input[type="number"]::-webkit-inner-spin-button {
     .tile {
         height: 23px;
         width: 23px;
+    }
+
+    #player1_name_contanier {
+        justify-content: flex-start;
+    }
+
+    #player2_name_contanier {
+        justify-content: flex-end;
     }
 
     .row_l {

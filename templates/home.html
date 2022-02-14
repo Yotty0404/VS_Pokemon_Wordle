@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="static/css/style.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js" integrity="sha512-q/dWJ3kcmjBLU4Qc47E4A9kTB4m3wuTY7vkFJDTZKjTs8jhyGQnaUrxa0Ytd0ssMZhbNua9hE+E7Qv1j+DyZwA==" crossorigin="anonymous"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/js-cookie@2/src/js.cookie.min.js"></script>
     <script src="static/js/script.js" charset="shift_jis"></script>
     <script src="https://kit.fontawesome.com/f1fd2cf3a8.js" crossorigin="anonymous"></script>
     <link href="static/img/32.png" rel="icon shortcut" sizes="3232">
@@ -32,16 +33,21 @@
 
     <!-- Global site tag (gtag.js) - Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-KP8MHDTX4E"></script>
-    <script>window.dataLayer = window.dataLayer || [];
+    <script>
+        window.dataLayer = window.dataLayer || [];
         function gtag() { dataLayer.push(arguments); }
         gtag('js', new Date());
 
-        gtag('config', 'G-KP8MHDTX4E');</script>
+        gtag('settings', 'G-KP8MHDTX4E');
+    </script>
 </head>
 <body>
     <div id="header_container">
         <div id="header">VS POKEMON WORDLE</div>
-        <div id="header_btn_help" class="material-icons-outlined btn_help">help_outline</div>
+        <div id="header_icons">
+            <div id="header_btn_help" class="material-icons-outlined btn_help btn_icon">help_outline</div>
+            <div id="header_btn_settings" class="material-icons-outlined btn_settings btn_icon">settings</div>
+        </div>
     </div>
     <div id="header_container2">
         <div id="header_container2-2">
@@ -60,7 +66,10 @@
         </div>
 
         <div id="login" class="modal">
-            <div id="login_btn_help" class="material-icons-outlined btn_help">help_outline</div>
+            <div id="login_icons">
+                <div id="login_btn_help" class="material-icons-outlined btn_help btn_icon">help_outline</div>
+                <div id="login_btn_settings" class="material-icons-outlined btn_settings btn_icon">settings</div>
+            </div>
             <input id="txt_user_name" class="textbox login_obj" type="text" name="user_name" placeholder="ユーザー名" maxlength="8" />
             <input id="txt_room_code" class="textbox login_obj" type="number" name="room_code" placeholder="4桁の部屋コード" oninput="slice_max_length(this, 4)" pattern="\d*" value={{ room_code }}>
             <input id="btn_join" type="submit" value="JOIN" class="btn login_obj">
@@ -72,7 +81,9 @@
             <img id="img_yajirushi" src="static/img/yajirushi.png">
         </div>
         <div id="board_l" class="board">
-            <div id="player1_name" class="player"></div>
+            <div id="player1_name_contanier" class="player_name_contanier">
+                <div id="player1_name" class="player"></div>
+            </div>
             <div id="answer_l" class="answer row_l">
                 <div class="tile answer_tile"></div>
                 <div class="tile answer_tile"></div>
@@ -85,7 +96,9 @@
             </div>
         </div>
         <div id="board_r" class="board">
-            <div id="player2_name" class="player"></div>
+            <div id="player2_name_contanier" class="player_name_contanier">
+                <div id="player2_name" class="player"></div>
+            </div>
             <div id="answer_r" class="answer row_r">
                 <div class="tile answer_tile"></div>
                 <div class="tile answer_tile"></div>
@@ -132,12 +145,12 @@
         <div class="gray_container">
         </div>
 
-        <div id="help" class="modal">
-            <div id="help_header">
-                <div id="help_btn_close" class="material-icons-outlined">close</div>
-                <div id="help_header_title">HOW TO PLAY</div>
+        <div id="help" class="modal window">
+            <div id="help_header" class="window_header">
+                <div id="help_btn_close" class="material-icons-outlined window_btn_close">close</div>
+                <div id="help_header_title" class="window_header_title">HOW TO PLAY</div>
             </div>
-            <div id="help_body">
+            <div id="help_body" class="window_body">
                 <div class="help_msg">相手のポケモンを当てる対戦型Wordleです。</div>
 
                 <div class="help_msg_subject">ログインの仕方</div>
@@ -156,6 +169,43 @@
                 <div class="help_msg_subject">お問い合わせ</div>
                 <a class="help_msg" href="https://twitter.com/YottyPG" target="_blank" rel="noopener noreferrer">@YottyPG</a>
                 <div class="help_msg">要望やバグ報告などあれば、こちらのTwitterアカウントまでお気軽にご連絡ください。</div>
+
+                <div class="help_msg_subject">更新履歴</div>
+                <div class="help_msg"><a href="https://qiita.com/YottyPG/items/c4488fef8ad09024a181" target="_blank" rel="noopener noreferrer">こちらの記事</a>からご確認ください。</div>
+            </div>
+        </div>
+    </div>
+
+    <div id="settings_container" class="modal_container transparent">
+        <div class="gray_container">
+        </div>
+
+        <div id="settings" class="modal window">
+            <div id="settings_header" class="window_header">
+                <div id="settings_btn_close" class="material-icons-outlined window_btn_close">close</div>
+                <div id="settings_header_title" class="window_header_title">SETTINGS</div>
+            </div>
+            <div class="settings_body_container window_body">
+                <div id="settings_body">
+                    <div class="settings_msg_subject">ハイコントラストモード</div>
+                </div>
+                <div id="tgl_high_contrast_mode" class="toggle">
+                    <input id="chk_high_contrast_mode" type="checkbox" name="check" />
+                </div>
+            </div>
+            <div id="example_tiles_container">
+                <div class="example_obj">文字:○</div>
+                <div class="example_obj">文字:○</div>
+                <div class="example_obj">文字:×</div>
+                <div class="example_obj">位置:○</div>
+                <div class="example_obj">位置:×</div>
+                <div class="example_obj">位置:×</div>
+
+                <div id="example_row">
+                    <div class="tile answer_tile"></div>
+                    <div class="tile answer_tile"></div>
+                    <div class="tile answer_tile"></div>
+                </div>
             </div>
         </div>
     </div>
