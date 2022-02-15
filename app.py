@@ -121,7 +121,7 @@ def btn_click(json):
             emit('battle_start', broadcast=True, to=room_code)
 
     else:
-        judges = []
+        judges = [0,0,0,0,0]
         target_poke_name = ''
         correct_index = 0
         if is_p1:
@@ -131,13 +131,29 @@ def btn_click(json):
             target_poke_name = temp_info.p1_poke_name
             correct_index = 1
 
+        l_poke_name = list(poke_name)
+        l_target_poke_name = list(target_poke_name)
+
         for i in range(5):
-            if poke_name[i] == target_poke_name[i]:
-                judges.append(1)
-            elif poke_name[i] in target_poke_name:
-                judges.append(2)
-            else:
-                judges.append(0)
+            if l_poke_name[i] == l_target_poke_name[i]:
+                judges[i] = 1
+        
+                #チェック済みとして更新
+                l_poke_name[i] = '!'
+                l_target_poke_name[i] = '!'
+        
+        for i in range(5):
+            if l_poke_name[i] == '!':
+                continue
+    
+            if l_poke_name[i] in l_target_poke_name:
+                judges[i] = 2
+        
+                #チェック済みとして更新
+                index = l_target_poke_name.index(l_poke_name[i])
+                l_poke_name[i] = '!'
+                l_target_poke_name[index] = '!'
+
 
         if max(judges) == min(judges) == 1:
             temp_info.correct[correct_index] = 1

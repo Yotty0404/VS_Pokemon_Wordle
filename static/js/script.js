@@ -227,6 +227,8 @@ socket.on('see_answer', function (data) {
 $(document).ready(function () {
     var cookie = Cookies.get('is_high_contrast')
     if (cookie === undefined) {
+        //クッキーの初期化
+        Cookies.set('is_high_contrast', 'false', { expires: 30 });
         return;
     }
 
@@ -237,7 +239,7 @@ $(document).ready(function () {
         $('#tgl_high_contrast_mode').toggleClass('checked');
     }
 
-    Cookies.set('is_high_contrast', Cookies.get('is_high_contrast'), { expires: 30 });
+    Cookies.set('is_high_contrast', cookie, { expires: 30 });
 });
 
 //JOINボタンクリック
