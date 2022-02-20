@@ -660,6 +660,10 @@ input[type="number"]::-webkit-inner-spin-button {
         height: calc(100% - 62px);
     }
 
+    #player1_name_contanier {
+        justify-content: flex-start;
+    }
+
     #player2_name_contanier {
         justify-content: flex-end;
     }
