@@ -376,6 +376,9 @@ $(document).ready(function () {
 
 //JOINボタンクリック
 $(document).on('click', '#btn_join', function () {
+    //2度押し防止
+    $('#btn_join').prop('disabled', true);
+
     var temp_user_name = $('#txt_user_name').val();
     var temp_room_code = $('#txt_room_code').val();
 
