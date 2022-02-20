@@ -145,7 +145,7 @@ input, button, select, textarea {
         display: none;
     }
 
-#input_container {
+.input_container {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-around;
@@ -611,8 +611,7 @@ input[type="number"]::-webkit-inner-spin-button {
     }
 
     #board_container {
-        /*        height: calc(100% - 288px);*/
-        height: calc(var(--vh, 1vh) * 100 - 380px);
+        height: calc(var(--vh, 1vh) * 100 - 388px);
     }
 
     #kb_container1 {
@@ -925,8 +924,6 @@ input[type="number"]::-webkit-inner-spin-button {
 
 #input_tile_row {
     height: 32px;
-    padding-bottom: 2px;
-    margin-bottom: 2px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -963,3 +960,54 @@ input[type="number"]::-webkit-inner-spin-button {
 .display_none {
     display: none !important;
 }
+
+
+#table_50on {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: rgb(198, 198, 198);
+    user-select: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    -moz-user-select: none;
+    -khtml-user-select: none;
+    -webkit-user-drag: none;
+    -khtml-user-drag: none;
+    height: 280px;
+    touch-action: none;
+    z-index: 5;
+    justify-content: flex-start;
+}
+
+#table_50on2 {
+    height: 126px;
+    width: 275px;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row-reverse;
+    justify-content: center;
+    margin-top: 5px;
+    padding:2px 0px 2px 0px;
+}
+
+.table_50on_column {
+    width: 8%;
+    height: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    justify-content: space-around;
+    margin: 0px 2px 0px 2px;
+}
+
+    .table_50on_column .kb_key_item {
+        height: 22px;
+        width: 22px;
+        font-size: 13px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
