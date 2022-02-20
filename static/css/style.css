@@ -990,7 +990,7 @@ input[type="number"]::-webkit-inner-spin-button {
     flex-direction: row-reverse;
     justify-content: center;
     margin-top: 5px;
-    padding:2px 0px 2px 0px;
+    padding: 2px 0px 2px 0px;
 }
 
 .table_50on_column {
@@ -1011,3 +1011,8 @@ input[type="number"]::-webkit-inner-spin-button {
         justify-content: center;
         align-items: center;
     }
+
+
+#footer_flick, #footer_text {
+    z-index: 10;
+}
