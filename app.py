@@ -159,6 +159,7 @@ def btn_click(json):
             temp_info.correct[correct_index] = 1
 
         emit('judge', {'is_p1': is_p1,'poke_name':poke_name, 'judges':judges }, broadcast=True, to=room_code)
+        emit('update_input_word', {'poke_name':poke_name, 'judges':judges })
         
         #Player2のターン かつ どちらかが正解で試合終了
         if not is_p1 and max(temp_info.correct) == 1:

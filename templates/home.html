@@ -5,16 +5,18 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <meta name="description" content="相手のポケモンを予想して当てる「Wordle」風 対戦ゲーム。">
-    <link rel="stylesheet" href="static/css/style.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js" integrity="sha512-q/dWJ3kcmjBLU4Qc47E4A9kTB4m3wuTY7vkFJDTZKjTs8jhyGQnaUrxa0Ytd0ssMZhbNua9hE+E7Qv1j+DyZwA==" crossorigin="anonymous"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/js-cookie@2/src/js.cookie.min.js"></script>
-    <script src="static/js/script.js" charset="shift_jis"></script>
     <script src="https://kit.fontawesome.com/f1fd2cf3a8.js" crossorigin="anonymous"></script>
     <link href="static/img/32.png" rel="icon shortcut" sizes="3232">
     <link href="static/img/192.png" rel="apple-touch-icon">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons%7CMaterial+Icons+Outlined" rel="stylesheet">
+
+    <link rel="stylesheet" href="static/css/style.css?20220220-05">
+    <script src="static/js/script.js?20220220-05" charset="shift_jis"></script>
+
     <!-- FB Meta Tags -->
     <meta property="og:url" content="https://www.vs-pokemon-wordle.com">
     <meta property="og:type" content="website">
@@ -113,9 +115,310 @@
     </div>
 
     <div id="input_container">
-        <div>
+        <div id="input_container2" class="display_none">
             <input id="txt_poke_name" class="textbox" type="text" placeholder="ポケモンの名前" maxlength="5" disabled />
-            <input id="btn" type="button" value="ENTER" class="btn" disabled>
+            <input id="btn_enter" type="button" value="ENTER" class="btn" disabled>
+        </div>
+        <div id="input_container_flick">
+            <div  id="input_tile_row">
+                <div class="tile answer_tile blank_tile"></div>
+                <div class="tile answer_tile blank_tile"></div>
+                <div class="tile answer_tile blank_tile"></div>
+                <div class="tile answer_tile blank_tile"></div>
+                <div class="tile answer_tile blank_tile"></div>
+            </div>
+        </div>
+    </div>
+
+
+    <div id="kb_container1">
+        <div id="kb_container2">
+            <div class="kb_input">
+                <div class="kb_key_shadow kb_key_shadow_u">
+                    <div class="kb_key_flick kb_key_u transparent"></div>
+                </div>
+                <div class="kb_key_shadow kb_key_shadow_d">
+                    <div class="kb_key_flick kb_key_d transparent"></div>
+                </div>
+                <div class="kb_key_shadow kb_key_shadow_l">
+                    <div class="kb_key_flick kb_key_l transparent"></div>
+                </div>
+                <div class="kb_key_shadow kb_key_shadow_r">
+                    <div class="kb_key_flick kb_key_r transparent"></div>
+                </div>
+
+                <div class="kb_row">
+                    <div id="kb_key_container">
+                        <div class="kb_key kb_key_no_input">
+                            <div class="kb_key_item" style="border:none"></div>
+                            <div class="kb_key_item">ウ</div>
+                            <div class="kb_key_item" style="border:none"></div>
+                            <div class="kb_key_item">イ</div>
+                            <div class="kb_key_item">ア</div>
+                            <div class="kb_key_item">エ</div>
+                            <div class="kb_key_item" style="border:none"></div>
+                            <div class="kb_key_item">オ</div>
+                            <div class="kb_key_item" style="border:none"></div>
+                        </div>
+                    </div>
+                    <div id="kb_key_container">
+                        <div class="kb_key kb_key_no_input">
+                            <div class="kb_key_item" style="border:none"></div>
+                            <div class="kb_key_item">ク</div>
+                            <div class="kb_key_item" style="border:none"></div>
+                            <div class="kb_key_item">キ</div>
+                            <div class="kb_key_item">カ</div>
+                            <div class="kb_key_item">ケ</div>
+                            <div class="kb_key_item" style="border:none"></div>
+                            <div class="kb_key_item">コ</div>
+                            <div class="kb_key_item" style="border:none"></div>
+                        </div>
+                    </div>
+                    <div id="kb_key_container">
+                        <div class="kb_key kb_key_no_input">
+                            <div class="kb_key_item" style="border:none"></div>
+                            <div class="kb_key_item">ス</div>
+                            <div class="kb_key_item" style="border:none"></div>
+                            <div class="kb_key_item">シ</div>
+                            <div class="kb_key_item">サ</div>
+                            <div class="kb_key_item">セ</div>
+                            <div class="kb_key_item" style="border:none"></div>
+                            <div class="kb_key_item">ソ</div>
+                            <div class="kb_key_item" style="border:none"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="kb_row">
+                    <div id="kb_key_container">
+                        <div class="kb_key kb_key_no_input">
+                            <div class="kb_key_item" style="border:none"></div>
+                            <div class="kb_key_item">ツ</div>
+                            <div class="kb_key_item">ッ</div>
+                            <div class="kb_key_item">チ</div>
+                            <div class="kb_key_item">タ</div>
+                            <div class="kb_key_item">テ</div>
+                            <div class="kb_key_item" style="border:none"></div>
+                            <div class="kb_key_item">ト</div>
+                            <div class="kb_key_item" style="border:none"></div>
+                        </div>
+                    </div>
+                    <div id="kb_key_container">
+                        <div class="kb_key kb_key_no_input">
+                            <div class="kb_key_item" style="border:none"></div>
+                            <div class="kb_key_item">ヌ</div>
+                            <div class="kb_key_item" style="border:none"></div>
+                            <div class="kb_key_item">ニ</div>
+                            <div class="kb_key_item">ナ</div>
+                            <div class="kb_key_item">ネ</div>
+                            <div class="kb_key_item" style="border:none"></div>
+                            <div class="kb_key_item">ノ</div>
+                            <div class="kb_key_item" style="border:none"></div>
+                        </div>
+                    </div>
+                    <div id="kb_key_container">
+                        <div class="kb_key kb_key_no_input">
+                            <div class="kb_key_item" style="border:none"></div>
+                            <div class="kb_key_item">フ</div>
+                            <div class="kb_key_item" style="border:none"></div>
+                            <div class="kb_key_item">ヒ</div>
+                            <div class="kb_key_item">ハ</div>
+                            <div class="kb_key_item">ヘ</div>
+                            <div class="kb_key_item" style="border:none"></div>
+                            <div class="kb_key_item">ホ</div>
+                            <div class="kb_key_item" style="border:none"></div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="kb_row">
+                    <div id="kb_key_container">
+                        <div class="kb_key kb_key_no_input">
+                            <div class="kb_key_item" style="border:none"></div>
+                            <div class="kb_key_item">ム</div>
+                            <div class="kb_key_item" style="border:none"></div>
+                            <div class="kb_key_item">ミ</div>
+                            <div class="kb_key_item">マ</div>
+                            <div class="kb_key_item">メ</div>
+                            <div class="kb_key_item" style="border:none"></div>
+                            <div class="kb_key_item">モ</div>
+                            <div class="kb_key_item" style="border:none"></div>
+                        </div>
+                    </div>
+                    <div id="kb_key_container">
+                        <div class="kb_key kb_key_no_input">
+                            <div class="kb_key_item" style="border:none"></div>
+                            <div class="kb_key_item">ユ</div>
+                            <div class="kb_key_item">ュ</div>
+                            <div class="kb_key_item" style="border:none"></div>
+                            <div class="kb_key_item">ヤ</div>
+                            <div class="kb_key_item">ャ</div>
+                            <div class="kb_key_item" style="border:none"></div>
+                            <div class="kb_key_item">ヨ</div>
+                            <div class="kb_key_item">ョ</div>
+                        </div>
+                    </div>
+                    <div id="kb_key_container">
+                        <div class="kb_key kb_key_no_input">
+                            <div class="kb_key_item" style="border:none"></div>
+                            <div class="kb_key_item">ル</div>
+                            <div class="kb_key_item" style="border:none"></div>
+                            <div class="kb_key_item">リ</div>
+                            <div class="kb_key_item">ラ</div>
+                            <div class="kb_key_item">レ</div>
+                            <div class="kb_key_item" style="border:none"></div>
+                            <div class="kb_key_item">ロ</div>
+                            <div class="kb_key_item" style="border:none"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="kb_row">
+                    <div id="kb_key_container">
+                        <div id="kb_key_switch" class="kb_key kb_key_no_input">
+                            <div id="kb_key_switch1">゛゜</div>
+                            <div id="kb_key_switch2">小</div>
+                        </div>
+                    </div>
+                    <div id="kb_key_container">
+                        <div class="kb_key kb_key_no_input">
+                            <div class="kb_key_item" style="border:none"></div>
+                            <div class="kb_key_item">ン</div>
+                            <div class="kb_key_item" style="border:none"></div>
+                            <div class="kb_key_item">ヲ</div>
+                            <div class="kb_key_item">ワ</div>
+                            <div class="kb_key_item">ー</div>
+                            <div class="kb_key_item" style="border:none"></div>
+                            <div class="kb_key_item" style="border:none"></div>
+                            <div class="kb_key_item" style="border:none"></div>
+                        </div>
+                    </div>
+                    <div id="kb_key_container">
+                        <div class="kb_key kb_key_no_input">
+                            <div class="kb_key_item" style="border:none"></div>
+                            <div class="kb_key_item">2</div>
+                            <div class="kb_key_item" style="border:none"></div>
+                            <div class="kb_key_item">♀</div>
+                            <div class="kb_key_item">♂</div>
+                            <div class="kb_key_item">Z</div>
+                            <div class="kb_key_item" style="border:none"></div>
+                            <div class="kb_key_item" style="border:none"></div>
+                            <div class="kb_key_item" style="border:none"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="kb_sub kb_sub1">
+                <div class="kb_row">
+                    <div id="kb_key_container">
+                        <div class="kb_key kb_key_no_input">
+                            <div class="kb_key_item" style="border:none"></div>
+                            <div class="kb_key_item">ゥ</div>
+                            <div class="kb_key_item" style="border:none"></div>
+                            <div class="kb_key_item">ィ</div>
+                            <div class="kb_key_item">ァ</div>
+                            <div class="kb_key_item">ェ</div>
+                            <div class="kb_key_item" style="border:none"></div>
+                            <div class="kb_key_item">ォ</div>
+                            <div class="kb_key_item" style="border:none"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="kb_row">
+                    <div id="kb_key_container">
+                        <div class="kb_key kb_key_no_input">
+                            <div class="kb_key_item" style="border:none"></div>
+                            <div class="kb_key_item">グ</div>
+                            <div class="kb_key_item" style="border:none"></div>
+                            <div class="kb_key_item">ギ</div>
+                            <div class="kb_key_item">ガ</div>
+                            <div class="kb_key_item">ゲ</div>
+                            <div class="kb_key_item" style="border:none"></div>
+                            <div class="kb_key_item">ゴ</div>
+                            <div class="kb_key_item" style="border:none"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="kb_row">
+                    <div id="kb_key_container">
+                        <div class="kb_key kb_key_no_input">
+                            <div class="kb_key_item" style="border:none"></div>
+                            <div class="kb_key_item">ズ</div>
+                            <div class="kb_key_item" style="border:none"></div>
+                            <div class="kb_key_item">ジ</div>
+                            <div class="kb_key_item">ザ</div>
+                            <div class="kb_key_item">ゼ</div>
+                            <div class="kb_key_item" style="border:none"></div>
+                            <div class="kb_key_item">ゾ</div>
+                            <div class="kb_key_item" style="border:none"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="kb_row">
+                    <div id="kb_key_container">
+                        <div class="kb_key kb_key_no_input">
+                            <div class="kb_key_item" style="border:none"></div>
+                            <div class="kb_key_item">ヅ</div>
+                            <div class="kb_key_item" style="border:none"></div>
+                            <div class="kb_key_item">ヂ</div>
+                            <div class="kb_key_item">ダ</div>
+                            <div class="kb_key_item">デ</div>
+                            <div class="kb_key_item" style="border:none"></div>
+                            <div class="kb_key_item">ド</div>
+                            <div class="kb_key_item" style="border:none"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="kb_sub kb_sub2">
+                <div class="kb_row">
+                    <div id="kb_key_container">
+                        <div id="kb_key_bs" class="kb_key kb_key_no_input">
+                            <div id="kb_btn_bs" class="material-icons-outlined kb_btn">backspace</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="kb_row">
+                    <div id="kb_key_container">
+                        <div class="kb_key kb_key_no_input">
+                            <div class="kb_key_item" style="border:none"></div>
+                            <div class="kb_key_item">ブ</div>
+                            <div class="kb_key_item" style="border:none"></div>
+                            <div class="kb_key_item">ビ</div>
+                            <div class="kb_key_item">バ</div>
+                            <div class="kb_key_item">ベ</div>
+                            <div class="kb_key_item" style="border:none"></div>
+                            <div class="kb_key_item">ボ</div>
+                            <div class="kb_key_item" style="border:none"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="kb_row">
+                    <div id="kb_key_container">
+                        <div class="kb_key kb_key_no_input">
+                            <div class="kb_key_item" style="border:none"></div>
+                            <div class="kb_key_item">プ</div>
+                            <div class="kb_key_item" style="border:none"></div>
+                            <div class="kb_key_item">ピ</div>
+                            <div class="kb_key_item">パ</div>
+                            <div class="kb_key_item">ペ</div>
+                            <div class="kb_key_item" style="border:none"></div>
+                            <div class="kb_key_item">ポ</div>
+                            <div class="kb_key_item" style="border:none"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="kb_row">
+                    <div id="kb_key_container">
+                        <div id="kb_key_enter" class="kb_key kb_key_no_input">
+                            <div id="kb_btn_enter" class="kb_btn">ENTER</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 
@@ -205,6 +508,16 @@
                     <div class="tile answer_tile"></div>
                     <div class="tile answer_tile"></div>
                     <div class="tile answer_tile"></div>
+                </div>
+            </div>
+
+            <div class="settings_bar"></div>
+            <div class="settings_body_container window_body">
+                <div id="settings_body">
+                    <div class="settings_msg_subject">フリック入力</div>
+                </div>
+                <div id="tgl_flick" class="toggle">
+                    <input id="chk_flick" type="checkbox" name="check" />
                 </div>
             </div>
         </div>

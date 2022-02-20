@@ -1,5 +1,13 @@
 ﻿body {
     font-family: 'メイリオ', 'Meiryo', sans-serif;
+    display: flex;
+    flex-direction: column;
+    margin: 0;
+    padding: 0;
+    width: 100vw;
+    min-height: 100vh;
+    min-height: calc(var(--vh, 1vh) * 100);
+    overflow: hidden;
 }
 
 input, button, select, textarea {
@@ -65,11 +73,13 @@ input, button, select, textarea {
     width: 90vw;
     max-width: 500px;
     margin: 0 auto;
-    height: calc(100vh - 243px);
+    height: calc(var(--vh, 1vh) * 100 - 407px);
+    z-index: 1;
 }
 
 .board {
     width: 50%;
+    height: 100%;
 }
 
 .player_name_contanier {
@@ -104,7 +114,7 @@ input, button, select, textarea {
 }
 
 .answer_tile {
-    border: solid 1px #838383 !important;
+    border: solid 1px #484848 !important;
 }
 
 .tile {
@@ -126,7 +136,7 @@ input, button, select, textarea {
 }
 
 .predict {
-    height: calc(100vh - 260px);
+    height: calc(100% - 70px);
     overflow-y: scroll;
     -webkit-overflow-scrolling: touch;
 }
@@ -139,11 +149,37 @@ input, button, select, textarea {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-around;
-    align-items: center;
-    margin: 0 auto;
-    position: fixed;
-    bottom: 20px;
+    height: 40px;
     width: 100%;
+    background-color: rgb(248, 248, 248);
+    z-index: 5;
+}
+
+#input_container2 {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    align-items: center;
+    width: 330px;
+}
+
+#btn_confirm {
+    height: 28px;
+    width: 40px;
+}
+
+
+#btn_enter {
+    height: 28px;
+    width: 55px;
+    font-size: 14px;
+}
+
+#txt_poke_name {
+    height: 16px;
+    width: calc(100% - 80px);
+    font-size: 18px;
+    margin-top: -3px;
 }
 
 .textbox {
@@ -204,6 +240,7 @@ input:focus::placeholder {
     width: 100%;
     top: 0;
     left: 0;
+    z-index: 10;
 }
 
 #battle_start {
@@ -238,6 +275,7 @@ input:focus::placeholder {
     top: 0;
     left: 0;
     z-index: 1000;
+    pointer-events: none;
 }
 
 #msg {
@@ -249,36 +287,6 @@ input:focus::placeholder {
     transition: all .5s;
     padding: 5px 10px 2px 10px;
     border-radius: 8px;
-}
-
-.judge0 {
-    background-color: rgb(141, 141, 141);
-    color: white;
-}
-
-.judge1 {
-    background-color: rgb(73, 185, 77);
-    color: white;
-}
-
-.judge2 {
-    background-color: rgb(211, 198, 79);
-    color: white;
-}
-
-.judge0_hc {
-    background-color: rgb(141, 141, 141);
-    color: white;
-}
-
-.judge1_hc {
-    background-color: rgb(245,121,58);
-    color: white;
-}
-
-.judge2_hc {
-    background-color: rgb(133,192,249);
-    color: white;
 }
 
 .win {
@@ -585,7 +593,32 @@ input[type="number"]::-webkit-inner-spin-button {
     justify-content: space-around;
 }
 
-@media (max-width: 700px) {
+
+
+.settings_bar {
+    width: 95%;
+    margin-top: 20px;
+    border-bottom: 2px solid rgb(225, 225, 225);
+}
+
+@media (max-width: 600px) {
+    #header_container {
+        height: 28px;
+    }
+
+    #header_container2 {
+        height: 40px;
+    }
+
+    #board_container {
+        /*        height: calc(100% - 288px);*/
+        height: calc(var(--vh, 1vh) * 100 - 380px);
+    }
+
+    #kb_container1 {
+        /*        height: 220px;*/
+    }
+
     #header {
         font-size: 18px;
         height: 26px;
@@ -603,7 +636,7 @@ input[type="number"]::-webkit-inner-spin-button {
         font-size: 24px !important;
     }
 
-    #btn {
+    #btn_enter {
         font-size: 14px;
         width: 55px;
     }
@@ -623,8 +656,8 @@ input[type="number"]::-webkit-inner-spin-button {
         width: 23px;
     }
 
-    #player1_name_contanier {
-        justify-content: flex-start;
+    .predict {
+        height: calc(100% - 62px);
     }
 
     #player2_name_contanier {
@@ -654,16 +687,275 @@ input[type="number"]::-webkit-inner-spin-button {
         line-height: 29px;
     }
 
-    #txt_poke_name {
-        width: 250px;
-    }
-
     #help_header_title {
         font-size: 19px;
         height: 26px;
     }
 
-    .predict {
-        height: calc(100vh - 280px);
+    #input_container {
+        height: 32px;
     }
+
+    #input_tile_row {
+        height: 24px;
+    }
+}
+
+
+
+/*フリック用キーボード*/
+#kb_container1 {
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+    background-color: #707070;
+    user-select: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    -moz-user-select: none;
+    -khtml-user-select: none;
+    -webkit-user-drag: none;
+    -khtml-user-drag: none;
+    height: 280px;
+    touch-action: none;
+    z-index: 5;
+}
+
+#kb_container2 {
+    display: flex;
+    flex-wrap: wrap;
+    width: 350px;
+    justify-content: center;
+    margin-top: -6px;
+}
+
+.kb_input {
+    width: 58%;
+    margin-top: 3px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    order: 2;
+}
+
+.kb_row {
+    width: 100%;
+    margin-top: 3px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
+
+
+.kb_key {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    align-items: center;
+    height: 65px;
+    width: 65px;
+    background-color: rgb(198, 198, 198);
+    border-radius: 2px;
+    box-shadow: 0 1px 1px 0 rgb(0 0 0 / 50%);
+}
+
+.kb_key_item {
+    margin: 0;
+    width: 30%;
+    height: 30%;
+    text-align: center;
+    background-color: rgb(255, 255, 255);
+    line-height: 18px;
+    font-size: 13px;
+    border-radius: 2px;
+    font-weight: 700;
+}
+
+.kb_key_flick {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    align-items: center;
+    height: 65px;
+    width: 65px;
+    background-color: white;
+    border-radius: 2px;
+}
+
+.kb_key_u {
+    clip-path: polygon(0 0, 100% 0, 100% 62%, 50% 100%, 0 62%);
+    line-height: 56px;
+    display: table-cell;
+    text-align: center;
+}
+
+.kb_key_d {
+    clip-path: polygon(50% 1%, 100% 38%, 100% 100%, 0 100%, 0% 38%);
+    line-height: 80px;
+}
+
+.kb_key_l {
+    clip-path: polygon(0 0, 75% 0, 100% 50%, 75% 100%, 0 100%);
+    letter-spacing: 4px;
+}
+
+.kb_key_r {
+    clip-path: polygon(25% 0, 100% 0, 100% 100%, 25% 100%, 0 50%);
+    letter-spacing: -10px;
+}
+
+
+.kb_key_shadow {
+    font-size: 24px;
+    font-weight: 700;
+    position: absolute;
+    filter: drop-shadow(4px 4px 4px rgba(0, 0, 0, 0.5));
+    pointer-events: none;
+}
+
+.kb_key_shadow_d {
+    /*    margin-top: -19px;*/
+}
+
+.kb_key_shadow_r {
+    /*    margin: -64px 0px 0px 46px;*/
+}
+
+.kb_sub {
+    display: flex;
+    justify-content: space-around;
+    flex-direction: column;
+    margin: 3px 2px 0px 2px;
+}
+
+.kb_sub1 {
+    order: 1;
+}
+
+.kb_sub2 {
+    order: 3;
+}
+
+#kb_btn_bs {
+    margin-left: -3px;
+}
+
+#kb_btn_enter {
+    font-weight: 700;
+    font-size: 14px;
+}
+
+#kb_key_switch {
+    display: flex;
+    flex-direction: column;
+    font-weight: 700;
+    font-size: 20px;
+}
+
+#kb_key_switch1 {
+    margin: 8px 0px 0px 10px;
+    font-weight: 700;
+    font-size: 20px;
+}
+
+#kb_key_switch2 {
+    margin-top: -28px;
+    font-size: 15px;
+}
+
+.kb_key_no_input .kb_key_item {
+    background-color: rgb(229, 229, 229);
+    color: rgb(130, 130, 130);
+}
+
+.gray {
+    background-color: #B6B6B6;
+}
+
+.gray_for_touch {
+    background-color: #8E8E8E;
+}
+
+.judge0 {
+    background-color: rgb(141, 141, 141) !important;
+    color: white !important;
+}
+
+.judge1 {
+    background-color: rgb(73, 185, 77) !important;
+    color: white !important;
+}
+
+.judge2 {
+    background-color: rgb(211, 198, 79) !important;
+    color: white !important;
+}
+
+.judge0_hc {
+    background-color: rgb(141, 141, 141) !important;
+    color: white !important;
+}
+
+.judge1_hc {
+    background-color: rgb(245,121,58) !important;
+    color: white !important;
+}
+
+.judge2_hc {
+    background-color: rgb(133,192,249) !important;
+    color: white !important;
+}
+
+
+
+#input_container_flick {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    background-color: rgb(225, 225, 225);
+}
+
+#input_tile_row {
+    height: 32px;
+    padding-bottom: 2px;
+    margin-bottom: 2px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+
+    #input_tile_row .tile {
+        transition: all 0.1s ease !important;
+    }
+
+.tile_animation {
+    animation-name: pop;
+    animation-duration: 0.08s;
+    animation-timing-function: ease-in;
+    animation-iteration-count: 1;
+    animation-play-state: running;
+}
+
+@keyframes pop {
+    50% {
+        transform: scale(1.2);
+    }
+
+    100% {
+        transform: scale(1);
+    }
+}
+
+
+.blank_tile {
+    border: solid 1px #C9C9C9 !important;
+}
+
+.display_none {
+    display: none !important;
 }
