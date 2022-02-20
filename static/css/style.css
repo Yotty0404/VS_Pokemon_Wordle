@@ -705,7 +705,6 @@ input[type="number"]::-webkit-inner-spin-button {
 }
 
 
-
 /*フリック用キーボード*/
 #kb_container1 {
     display: flex;
@@ -750,7 +749,6 @@ input[type="number"]::-webkit-inner-spin-button {
     flex-wrap: wrap;
     justify-content: space-around;
 }
-
 
 .kb_key {
     display: flex;
@@ -809,21 +807,12 @@ input[type="number"]::-webkit-inner-spin-button {
     letter-spacing: -10px;
 }
 
-
 .kb_key_shadow {
     font-size: 24px;
     font-weight: 700;
     position: absolute;
     filter: drop-shadow(4px 4px 4px rgba(0, 0, 0, 0.5));
     pointer-events: none;
-}
-
-.kb_key_shadow_d {
-    /*    margin-top: -19px;*/
-}
-
-.kb_key_shadow_r {
-    /*    margin: -64px 0px 0px 46px;*/
 }
 
 .kb_sub {
@@ -910,7 +899,6 @@ input[type="number"]::-webkit-inner-spin-button {
     background-color: rgb(133,192,249) !important;
     color: white !important;
 }
-
 
 
 #input_container_flick {
@@ -1011,7 +999,6 @@ input[type="number"]::-webkit-inner-spin-button {
         justify-content: center;
         align-items: center;
     }
-
 
 #footer_flick, #footer_text {
     z-index: 10;

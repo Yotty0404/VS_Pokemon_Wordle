@@ -70,6 +70,7 @@ socket.on('update_info_join', function (data) {
         }
 
         show_message('自分のポケモンを入力してください');
+        $('#btn_exit').prop('disabled', true);
     }
 });
 
@@ -102,7 +103,6 @@ socket.on('update_answer', function (data) {
 socket.on('battle_start', async function () {
     is_in_game = true;
     is_end = false;
-    /*    $('#turn').html('Player1のターン');*/
 
     //プレイヤー判断
     if (p1_id == socket.id) {
@@ -376,9 +376,6 @@ $(document).ready(function () {
 
 //JOINボタンクリック
 $(document).on('click', '#btn_join', function () {
-    //2度押し防止
-    $('#btn_join').prop('disabled', true);
-
     var temp_user_name = $('#txt_user_name').val();
     var temp_room_code = $('#txt_room_code').val();
 
@@ -402,6 +399,9 @@ $(document).on('click', '#btn_join', function () {
     if (hasError) {
         return;
     }
+
+    //2度押し防止
+    $('#btn_join').prop('disabled', true);
 
     socket.emit('join', { user_name: temp_user_name, room_code: temp_room_code });
 });
@@ -926,7 +926,6 @@ const l_word_handakuten = [
     , ['ホ', 'ボ', 'ポ']
 ]
 
-
 function get_judge_class(judge_no) {
     var class_name = `judge${judge_no}`;
 
@@ -936,7 +935,6 @@ function get_judge_class(judge_no) {
 
     return class_name;
 }
-
 
 function onTouchStart_switch(event) {
     if ($('#txt_poke_name').is(':disabled') || !is_flick) {
@@ -1075,6 +1073,11 @@ $(document).on('touchmove', '#kb_key_switch', onTouchMove_switch);
 $(document).on('touchend', '#kb_key_switch', onTouchEnd_switch);
 
 $(document).on('focus', '#txt_poke_name', async function (event) {
+    var top = $('#input_container2').offset().top - 10;
     $(window).scrollTop(100);
-    $('body,html').animate({ scrollTop: 280 }, 400, 'swing');
+    $('body,html').animate({ scrollTop: top }, 400, 'swing');
+});
+
+$(document).on('touchstart', '#txt_room_code', function (event) {
+    $('#txt_room_code').focus()
 });
