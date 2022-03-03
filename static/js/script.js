@@ -35,6 +35,10 @@ var is_in_game = false;
 var is_end = false;
 var is_high_contrast = false;
 var is_flick = true;
+var is_time_over = false;
+var timer = '';
+
+const TIME_LIMIT = 30;
 
 //満室エラー
 socket.on('full_error', function (data) {
@@ -126,16 +130,37 @@ socket.on('battle_start', async function () {
         });
     }
 
+    $('#room_info_container').addClass('display_none');
+    $('#time').text(TIME_LIMIT);
+    $('#timer_container').removeClass('display_none');
+
     $('#battle_start').text('BATTLE START');
     $('#battle_start_container').removeClass('collapse');
     $('#battle_start').removeClass('transparent');
     await sleep(2000);
     $('#battle_start_container').addClass('collapse');
     $('#battle_start').addClass('transparent');
+
+    //タイマースタート
+    clearInterval(timer);
+    $('#time').text(TIME_LIMIT);
+    $('#bar').stop();
+    $('#bar').width(230);
+    $('#bar').css('background-color', 'rgb(73, 185, 77)');
+    timer = setInterval(update_timer, 1000);
+    $('#bar').animate({ width: 0 }, { duration: TIME_LIMIT * 1000, easing: "linear", queue: false });
 });
 
 //判定を反映
-socket.on('judge', function (data) {
+socket.on('judge', async function (data) {
+    //タイマーリセット
+    is_time_over = false;
+    clearInterval(timer);
+    $('#time').text(TIME_LIMIT);
+    $('#bar').stop();
+    $('#bar').width(230);
+    $('#bar').css('background-color', 'rgb(73, 185, 77)');
+
     if (data.is_p1) {
         var row = $('<div class="row_r">');
         $('#predict_r_container').append(row);
@@ -186,6 +211,13 @@ socket.on('judge', function (data) {
 
         $('#img_yajirushi').removeClass('turn180');
     }
+
+    await sleep(2000);
+
+    if (!is_end) {
+        timer = setInterval(update_timer, 1000);
+        $('#bar').animate({ width: 0 }, { duration: TIME_LIMIT * 1000, easing: "linear", queue: false });
+    }
 });
 
 //入力履歴を更新
@@ -234,6 +266,12 @@ socket.on('end', async function (data) {
 
     await sleep(2000);
     is_end = true;
+
+    //タイマー終了
+    clearInterval(timer);
+    $('#bar').stop();
+    $('#timer_container').addClass('display_none');
+
 
     var msg = '';
     if (data.correct[0] == 1 && data.correct[1] == 1) {
@@ -421,6 +459,11 @@ function etner_click() {
             return;
         }
 
+        //時間切れの場合、空文字で回答処理
+        if (is_time_over) {
+            poke_name = '     ';
+        }
+
         if (!is_end) {
             $('#txt_poke_name').prop('disabled', true);
             $('#btn_enter,#kb_key_enter').prop('disabled', true);
@@ -466,6 +509,12 @@ function etner_click() {
 async function check_poke_name(poke_name) {
     var msg = '';
     var rtn = true;
+
+    if (is_time_over) {
+        msg = 'TIME OVER';
+        show_message(msg);
+        return true;
+    }
 
     if (poke_name.length != 5) {
         msg = '5文字で入力してください';
@@ -1078,6 +1127,42 @@ $(document).on('focus', '#txt_poke_name', async function (event) {
     $('body,html').animate({ scrollTop: top }, 400, 'swing');
 });
 
-$(document).on('touchstart', '#txt_room_code', function (event) {
-    $('#txt_room_code').focus()
-});
+
+
+
+function update_timer() {
+    var time = $('#time').text() - 1;
+    if (time < 0) {
+        $('#time').text('');
+        clearInterval(timer);
+        is_time_over = true;
+
+        if (is_flick) {
+            $('#kb_key_enter').trigger("touchstart");
+        }
+        else {
+            $('#btn_enter').trigger("click");
+        }
+        return;
+    }
+
+    if (time == 20) {
+        $('#bar').animate({ backgroundColor: "rgb(250, 230, 0)" }, { duration: 5000, easing: "easeOutQuart", queue: false });
+    }
+
+    if (time == 10) {
+        $('#bar').animate({ backgroundColor: "rgb(245,121,58)" }, { duration: 5000, easing: "easeOutQuart", queue: false });
+    }
+
+
+    if (time >= 0 && (time % 10 == 0 || time < 10)) {
+        $('#time').animate({ fontSize: 24 }, 400, reset_fontsize);
+    }
+
+    $('#time').text(time);
+}
+
+
+function reset_fontsize() {
+    $('#time').animate({ fontSize: 16 }, 400);
+}

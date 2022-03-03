@@ -7,15 +7,17 @@
     <meta name="description" content="相手のポケモンを予想して当てる「Wordle」風 対戦ゲーム。">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js" integrity="sha512-q/dWJ3kcmjBLU4Qc47E4A9kTB4m3wuTY7vkFJDTZKjTs8jhyGQnaUrxa0Ytd0ssMZhbNua9hE+E7Qv1j+DyZwA==" crossorigin="anonymous"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <script src="https://ajax.aspnetcdn.com/ajax/jquery.ui/1.12.1/jquery-ui.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/js-cookie@2/src/js.cookie.min.js"></script>
     <script src="https://kit.fontawesome.com/f1fd2cf3a8.js" crossorigin="anonymous"></script>
     <link href="static/img/32.png" rel="icon shortcut" sizes="3232">
     <link href="static/img/192.png" rel="apple-touch-icon">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons%7CMaterial+Icons+Outlined" rel="stylesheet">
+    <link rel="stylesheet" href="https://ajax.aspnetcdn.com/ajax/jquery.ui/1.12.1/themes/smoothness/jquery-ui.css">
 
-    <link rel="stylesheet" href="static/css/style.css?20220220-21">
-    <script src="static/js/script.js?20220220-21" charset="shift_jis"></script>
+    <link rel="stylesheet" href="static/css/style.css?20220303-11">
+    <script src="static/js/script.js?20220303-11" charset="shift_jis"></script>
 
     <!-- FB Meta Tags -->
     <meta property="og:url" content="https://www.vs-pokemon-wordle.com">
@@ -59,6 +61,12 @@
                 <a id="twitter" class="fa-brands fa-twitter-square snsicon collapse" href="https://twitter.com/intent/tweet?text=部屋コード%0a{room_code}%0a%0ahttps://www.vs-pokemon-wordle.com/?room_code={room_code}%0a%0a&hashtags=VsPokemonWordle" onClick="window.open(encodeURI(decodeURI(this.href)), 'tweetwindow', 'width=650, height=470, personalbar=0, toolbar=0, scrollbars=1, sizable=1'); return false;" rel="nofollow"></a>
                 <a id="line" class="fa-brands fa-line snsicon collapse" href="http://line.me/R/msg/text/?部屋コード%0a{room_code}%0a%0ahttps://www.vs-pokemon-wordle.com/?room_code={room_code}" target="_blank" rel="noopener noreferrer"></a>
             </div>
+
+            <div id="timer_container" class="display_none">
+                <div id="bar"></div>
+                <div id="time"></div>
+            </div>
+
             <input id="btn_reset" type="button" value="RESET" class="btn" disabled="disabled">
         </div>
     </div>

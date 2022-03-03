@@ -8,6 +8,14 @@
     min-height: 100vh;
     min-height: calc(var(--vh, 1vh) * 100);
     overflow: hidden;
+    user-select: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    -moz-user-select: none;
+    -khtml-user-select: none;
+    -webkit-user-drag: none;
+    -khtml-user-drag: none;
+    touch-action: none;
 }
 
 input, button, select, textarea {
@@ -46,6 +54,7 @@ input, button, select, textarea {
     #header_container2-2 .btn {
         height: 30px;
         width: 70px;
+        margin: 2px;
     }
 
 #header_icons {
@@ -614,10 +623,6 @@ input[type="number"]::-webkit-inner-spin-button {
         height: calc(var(--vh, 1vh) * 100 - 388px);
     }
 
-    #kb_container1 {
-        /*        height: 220px;*/
-    }
-
     #header {
         font-size: 18px;
         height: 26px;
@@ -713,15 +718,7 @@ input[type="number"]::-webkit-inner-spin-button {
     justify-content: center;
     align-items: center;
     background-color: #707070;
-    user-select: none;
-    -webkit-user-select: none;
-    -ms-user-select: none;
-    -moz-user-select: none;
-    -khtml-user-select: none;
-    -webkit-user-drag: none;
-    -khtml-user-drag: none;
     height: 280px;
-    touch-action: none;
     z-index: 5;
 }
 
@@ -1002,4 +999,22 @@ input[type="number"]::-webkit-inner-spin-button {
 
 #footer_flick, #footer_text {
     z-index: 10;
+}
+
+
+
+#timer_container {
+    height: 40px;
+    width: 65%;
+    display: flex;
+    flex-direction: row;
+    justify-content: left;
+    align-items: center;
+}
+
+#bar {
+    height: 24px;
+    width: 230px;
+    background-color: rgb(73, 185, 77);
+    transition: all .3s;
 }
