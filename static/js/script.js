@@ -36,12 +36,23 @@ var is_end = false;
 var is_high_contrast = false;
 var is_flick = true;
 var is_time_over = false;
+var p1_time_limit = '';
+var p2_time_limit = '';
+
 var timer = '';
 
-const TIME_LIMIT = 30;
+//初アクセスかどうか
+is_first_access = false
 
+
+//部屋が存在しないエラー
+socket.on('no_room_error', function (data) {
+    $('#btn_join').prop('disabled', false);
+    show_message('部屋が存在しません');
+});
 //満室エラー
 socket.on('full_error', function (data) {
+    $('#btn_join').prop('disabled', false);
     show_message('満室です');
 });
 
@@ -52,6 +63,8 @@ socket.on('update_info_join', function (data) {
     room_code = data.room_code;
     p1_id = data.p1_id;
     p2_id = data.p2_id;
+    p1_time_limit = data.p1_time_limit;
+    p2_time_limit = data.p2_time_limit;
 
     $('#room_info').text('部屋コード：' + room_code);
     $('#player1_name').text(data.p1_user_name);
@@ -131,7 +144,7 @@ socket.on('battle_start', async function () {
     }
 
     $('#room_info_container').addClass('display_none');
-    $('#time').text(TIME_LIMIT);
+    $('#time').text(p1_time_limit);
     $('#timer_container').removeClass('display_none');
 
     $('#battle_start').text('BATTLE START');
@@ -143,25 +156,19 @@ socket.on('battle_start', async function () {
 
     //タイマースタート
     clearInterval(timer);
-    $('#time').text(TIME_LIMIT);
     $('#bar').stop();
     $('#bar').width(230);
     $('#bar').css('background-color', 'rgb(73, 185, 77)');
     timer = setInterval(update_timer, 1000);
-    $('#bar').animate({ width: 0 }, { duration: TIME_LIMIT * 1000, easing: "linear", queue: false });
+    $('#bar').animate({ width: 0 }, { duration: p1_time_limit * 1000, easing: "linear", queue: false });
 });
 
 //判定を反映
 socket.on('judge', async function (data) {
-    //タイマーリセット
-    is_time_over = false;
-    clearInterval(timer);
-    $('#time').text(TIME_LIMIT);
-    $('#bar').stop();
-    $('#bar').width(230);
-    $('#bar').css('background-color', 'rgb(73, 185, 77)');
+    var time_limit = null;
 
     if (data.is_p1) {
+        time_limit = p2_time_limit;
         var row = $('<div class="row_r">');
         $('#predict_r_container').append(row);
         for (var i = 0; i < 5; i++) {
@@ -187,6 +194,7 @@ socket.on('judge', async function (data) {
         $('#img_yajirushi').addClass('turn180');
     }
     else {
+        time_limit = p1_time_limit;
         var row = $('<div class="row_l">');
         $('#predict_l_container').append(row);
         for (var i = 0; i < 5; i++) {
@@ -212,11 +220,20 @@ socket.on('judge', async function (data) {
         $('#img_yajirushi').removeClass('turn180');
     }
 
+
+    //タイマーリセット
+    is_time_over = false;
+    clearInterval(timer);
+    $('#time').text(time_limit);
+    $('#bar').stop();
+    $('#bar').width(230);
+    $('#bar').css('background-color', 'rgb(73, 185, 77)');
+
     await sleep(2000);
 
     if (!is_end) {
         timer = setInterval(update_timer, 1000);
-        $('#bar').animate({ width: 0 }, { duration: TIME_LIMIT * 1000, easing: "linear", queue: false });
+        $('#bar').animate({ width: 0 }, { duration: time_limit * 1000, easing: "linear", queue: false });
     }
 });
 
@@ -410,6 +427,38 @@ $(document).ready(function () {
     }
 
     Cookies.set('is_flick', cookie, { expires: 30 });
+
+    //ユーザー名
+    cookie = Cookies.get('user_name')
+    if (cookie === undefined || !cookie) {
+        //ユーザー名が登録されていない場合、設定画面を表示
+        show_message('ユーザー名を入力してください');
+        is_first_access = true;
+        $('#login_btn_settings').click();
+    }
+    else {
+        $('#txt_user_name').val(cookie);
+        Cookies.set('user_name', cookie, { expires: 30 });
+    }
+});
+
+//CREATEボタンクリック
+$(document).on('click', '#btn_create', function () {
+    var temp_user_name = $('#txt_user_name').val();
+
+    //2度押し防止
+    $('#btn_create').prop('disabled', true);
+
+    p1_time_limit = $('#slider').val();
+    p2_time_limit = null;
+    if ($('#chk_handicap').prop('checked')) {
+        p2_time_limit = $('#slider_opp').val();
+    }
+    else {
+        p2_time_limit = p1_time_limit;
+    }
+
+    socket.emit('create', { user_name: temp_user_name, p1_time_limit: p1_time_limit, p2_time_limit: p2_time_limit });
 });
 
 //JOINボタンクリック
@@ -418,13 +467,6 @@ $(document).on('click', '#btn_join', function () {
     var temp_room_code = $('#txt_room_code').val();
 
     var hasError = false;
-    if (temp_user_name == '') {
-        $('#txt_user_name').addClass('txt_error');
-        hasError = true;
-    }
-    else {
-        $('#txt_user_name').removeClass('txt_error');
-    }
 
     if (temp_room_code == '') {
         $('#txt_room_code').addClass('txt_error');
@@ -535,6 +577,14 @@ async function check_poke_name(poke_name) {
     return rtn;
 }
 
+
+//部屋コードでEnterキー押下時、JOINボタンクリックを発火
+$(document).on('keydown', '#txt_room_code', function (event) {
+    if (event.key === 'Enter') {
+        $('#btn_join').click();
+    }
+});
+
 //テキストボックスでEnterキー押下時、ボタンクリックを発火
 $(document).on('keydown', '#txt_poke_name', function (event) {
     if (event.key === 'Enter') {
@@ -616,15 +666,53 @@ $(document).on('click', '.btn_help', function () {
 });
 
 //設定ボタンクリック
-$(document).on('click', '.btn_settings', function () {
+$(document).on('click', '.btn_settings', async function () {
     $('#settings_container').removeClass('transparent');
 
+    //初回起動時、jsonの読み込み時間を考慮
+    if (is_first_access) {
+        await sleep(200);
+    }
+
+    is_first_access = false;
     update_row_by_judge(get_3poke_name(), $('#example_row'), [1, 2, 0]);
+});
+
+
+//×ボタンクリック(設定画面)
+$(document).on('click', '#settings_btn_close, #btn_settings_ok', function (e) {
+    var temp_user_name = $('#txt_user_name').val();
+
+    //ユーザー名が未入力の場合、後続の処理をキャンセル
+    if (temp_user_name == '') {
+        $('#txt_user_name').addClass('txt_error');
+        e.stopImmediatePropagation();
+    }
+    else {
+        $('#txt_user_name').removeClass('txt_error');
+    }
+
+    Cookies.set('user_name', temp_user_name, { expires: 30 });
 });
 
 //×ボタンクリック
 $(document).on('click', '.window_btn_close', function () {
     $('#help_container').addClass('transparent');
+    $('#settings_container').addClass('transparent');
+
+    //設定画面のタイルの色を初期化
+    $('#example_row').find('div').each(function (index, tile) {
+        $(tile).removeClass('judge0');
+        $(tile).removeClass('judge1');
+        $(tile).removeClass('judge2');
+        $(tile).removeClass('judge0_hc');
+        $(tile).removeClass('judge1_hc');
+        $(tile).removeClass('judge2_hc');
+    })
+});
+
+//設定画面OKボタンクリック
+$(document).on('click', '#btn_settings_ok', function () {
     $('#settings_container').addClass('transparent');
 
     //設定画面のタイルの色を初期化
@@ -645,6 +733,18 @@ $(document).on('click', '.toggle', function () {
         $(this).children('input').prop('checked', true);
     } else {
         $(this).children('input').prop('checked', false);
+    }
+});
+
+//ハンディキャップクリック
+$(document).on('click', '#tgl_handicap', function () {
+    if ($(this).children('input').prop('checked')) {
+        $('#slider_opp').prop('disabled', false);
+        $('#upper_time_limit_opp').hide();
+    }
+    else {
+        $('#slider_opp').prop('disabled', true);
+        $('#upper_time_limit_opp').show();
     }
 });
 
@@ -703,7 +803,6 @@ $(document).on('click', '#tgl_high_contrast_mode', function () {
         }
     })
 });
-
 
 //フリック入力クリック
 $(document).on('click', '#tgl_flick', function () {
@@ -1146,12 +1245,12 @@ function update_timer() {
         return;
     }
 
-    if (time == 20) {
-        $('#bar').animate({ backgroundColor: "rgb(250, 230, 0)" }, { duration: 5000, easing: "easeOutQuart", queue: false });
+    if (time == 19) {
+        $('#bar').animate({ backgroundColor: "rgb(250, 230, 0)" }, { duration: 2000, easing: "easeOutQuart", queue: false });
     }
 
-    if (time == 10) {
-        $('#bar').animate({ backgroundColor: "rgb(245,121,58)" }, { duration: 5000, easing: "easeOutQuart", queue: false });
+    if (time == 9) {
+        $('#bar').animate({ backgroundColor: "rgb(245,121,58)" }, { duration: 2000, easing: "easeOutQuart", queue: false });
     }
 
 
@@ -1166,3 +1265,15 @@ function update_timer() {
 function reset_fontsize() {
     $('#time').animate({ fontSize: 16 }, 400);
 }
+
+
+$(document).on('input', '#slider', function () {
+    var value = $(this).val();
+    $('#time_limit').text(value + '秒');
+});
+
+
+$(document).on('input', '#slider_opp', function () {
+    var value = $(this).val();
+    $('#time_limit_opp').text(value + '秒');
+});

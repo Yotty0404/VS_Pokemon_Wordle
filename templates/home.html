@@ -16,8 +16,8 @@
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons%7CMaterial+Icons+Outlined" rel="stylesheet">
     <link rel="stylesheet" href="https://ajax.aspnetcdn.com/ajax/jquery.ui/1.12.1/themes/smoothness/jquery-ui.css">
 
-    <link rel="stylesheet" href="static/css/style.css?20220303-11">
-    <script src="static/js/script.js?20220303-11" charset="shift_jis"></script>
+    <link rel="stylesheet" href="static/css/style.css?20220321-009">
+    <script src="static/js/script.js?20220321-009" charset="shift_jis"></script>
 
     <!-- FB Meta Tags -->
     <meta property="og:url" content="https://www.vs-pokemon-wordle.com">
@@ -75,14 +75,54 @@
         <div class="gray_container">
         </div>
 
-        <div id="login" class="modal">
+        <div class="create_room_container modal">
             <div id="login_icons">
                 <div id="login_btn_help" class="material-icons-outlined btn_help btn_icon">help_outline</div>
                 <div id="login_btn_settings" class="material-icons-outlined btn_settings btn_icon">settings</div>
             </div>
-            <input id="txt_user_name" class="textbox login_obj" type="text" name="user_name" placeholder="ユーザー名" maxlength="8" />
+
+            <div class="create_room_container_title">
+                <div>部屋を新規作成</div>
+            </div>
+
+            <div class="create_room_container_row">
+                <div>
+                    <div class="create_room_subject">ハンディキャップ</div>
+                </div>
+                <div id="tgl_handicap" class="toggle">
+                    <input id="chk_handicap" type="checkbox" name="check" />
+                </div>
+            </div>
+
+            <div class="create_room_container_row">
+                <div>
+                    <div class="create_room_subject">制限時間</div>
+                </div>
+                <div id="time_limit" class="value create_room_subject">30秒</div>
+            </div>
+            <input id="slider" type="range" min="10" max="120" step="10" value="30">
+
+            <div class="create_room_container_row">
+                <div>
+                    <div class="create_room_subject">制限時間（対戦相手）</div>
+                </div>
+                <div id="time_limit_opp" class="value create_room_subject">30秒</div>
+            </div>
+            <input id="slider_opp" type="range" min="10" max="120" step="10" value="30" disabled="true">
+            <div id="upper_time_limit_container">
+                <div id="upper_time_limit_opp"></div>
+            </div>
+            <input id="btn_create" type="submit" value="CREATE ROOM" class="btn login_obj">
+        </div>
+
+        <div id="login" class="modal">
+            <div class="create_room_container_title">
+                <div>入室</div>
+            </div>
+
             <input id="txt_room_code" class="textbox login_obj" type="number" name="room_code" placeholder="4桁の部屋コード" oninput="slice_max_length(this, 4)" pattern="\d*" value={{ room_code }}>
-            <input id="btn_join" type="submit" value="JOIN" class="btn login_obj">
+            <input id="btn_join" type="submit" value="JOIN ROOM" class="btn login_obj">
+
         </div>
     </div>
 
@@ -649,8 +689,18 @@
                 <div id="settings_btn_close" class="material-icons-outlined window_btn_close">close</div>
                 <div id="settings_header_title" class="window_header_title">SETTINGS</div>
             </div>
+
             <div class="settings_body_container window_body">
-                <div id="settings_body">
+                <div class="settings_msg_subject">ユーザー名</div>
+                <div id="user_name_reuired_container">
+                    <div class="required">必須</div>
+                </div>
+                <input id="txt_user_name" class="textbox login_obj" type="text" name="user_name" placeholder="ユーザー名" maxlength="8" />
+            </div>
+
+            <div class="settings_bar"></div>
+            <div class="settings_body_container window_body">
+                <div>
                     <div class="settings_msg_subject">ハイコントラストモード</div>
                 </div>
                 <div id="tgl_high_contrast_mode" class="toggle">
@@ -674,13 +724,15 @@
 
             <div class="settings_bar"></div>
             <div class="settings_body_container window_body">
-                <div id="settings_body">
+                <div>
                     <div class="settings_msg_subject">フリック入力</div>
                 </div>
                 <div id="tgl_flick" class="toggle">
                     <input id="chk_flick" type="checkbox" name="check" />
                 </div>
             </div>
+
+            <input id="btn_settings_ok" type="submit" value="OK" class="btn login_obj">
         </div>
     </div>
 </body>

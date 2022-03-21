@@ -195,7 +195,7 @@ input, button, select, textarea {
     border: solid 2px #000000;
     background-color: #F0F0F0;
     border-radius: 3px;
-    font-size: 22px;
+    font-size: 18px;
     padding: 4px;
     transform: translateY(2px);
 }
@@ -307,7 +307,14 @@ input:focus::placeholder {
 }
 
 #login {
-    padding-top: 20px;
+    margin-top: -20px;
+    padding-top: 0px;
+    padding-bottom: 5px;
+}
+
+#txt_room_code {
+    margin-top: 14px;
+    width: 80%;
 }
 
 .modal_container {
@@ -321,6 +328,7 @@ input:focus::placeholder {
     align-items: center;
     z-index: 100;
     transition: all .5s;
+    flex-direction: column;
 }
 
 .modal {
@@ -337,7 +345,7 @@ input:focus::placeholder {
 
 .login_obj {
     width: 85%;
-    margin: 10px;
+    margin: 6px;
 }
 
 .gray_container {
@@ -528,6 +536,11 @@ input[type="number"]::-webkit-inner-spin-button {
     flex-direction: row;
     justify-content: space-between;
     width: 100%;
+}
+
+#btn_settings_ok {
+    margin-top: 20px;
+    width: 60px;
 }
 
 .toggle {
@@ -1017,4 +1030,144 @@ input[type="number"]::-webkit-inner-spin-button {
     width: 230px;
     background-color: rgb(73, 185, 77);
     transition: all .3s;
+}
+
+
+.create_room_container {
+    background-color: rgb(246, 241, 182);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding-top: 5px;
+    padding-bottom: 25px;
+    overflow: hidden;
+}
+
+.create_room_subject {
+    font-size: 15px;
+    font-weight: 700;
+    margin-left: 10px;
+    margin: 14px 0px 0px 0px;
+}
+
+.create_room_container_title {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    border-bottom: 2px solid rgb(127, 127, 127);
+    font-size: 18px;
+    font-weight: 900;
+    margin: 14px 0px 0px 0px;
+}
+
+.create_room_container > .create_room_container_title {
+    margin: 0px 0px 0px 0px;
+}
+
+#login > .create_room_container_title {
+    margin: 12px 0px 0px 0px;
+}
+
+.create_room_container_row {
+    width: 80%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+    .create_room_container_row:nth-child(3) {
+        margin: -4px 0px 0px 0px;
+    }
+
+    .create_room_container_row:nth-child(5) {
+        margin: -10px 0px 0px 0px;
+    }
+
+#tgl_handicap {
+    margin-right: 0px;
+}
+
+
+#slider, #slider_opp {
+    -webkit-appearance: none;
+    appearance: none;
+    cursor: pointer;
+    outline: none;
+    margin: 10px 0px 20px 0px;
+    height: 12px;
+    width: calc(80% - 3px);
+    background: rgb(73, 185, 77);
+    border: solid 2px #e4ffd7;
+    border-radius: 0px;
+    overflow: visible;
+    user-select: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    -moz-user-select: none;
+    -khtml-user-select: none;
+    -webkit-user-drag: none;
+    -khtml-user-drag: none;
+    touch-action: none;
+}
+    /* WebKit向けのつまみ */
+    #slider::-webkit-slider-thumb, #slider_opp::-webkit-slider-thumb {
+        -webkit-appearance: none;
+        appearance: none;
+        background: white;
+        width: 30px;
+        height: 30px;
+        border-radius: 6px;
+        border: 1px solid #c8c8c8;
+        box-shadow: 2px 3px 4px 0px rgba(0, 0, 0, 0.4);
+        margin-top: -4px;
+        touch-action: none;
+    }
+    /* Moz向けのつまみ */
+    #slider::-moz-range-thumb, #slider_opp::-moz-range-thumb {
+        background: white;
+        width: 30px;
+        height: 30px;
+        border-radius: 6px;
+        box-shadow: 2px 3px 4px 0px rgba(0, 0, 0, 0.4);
+        border: none; /* デフォルトの線を消す */
+        touch-action: none;
+    }
+    /* Firefoxで点線が周りに表示されてしまう問題の解消 */
+    #slider::-moz-focus-outer, #slider_opp::-moz-focus-outer {
+        border: 0;
+    }
+    /* つまみをドラッグしているときのスタイル */
+    #slider::-webkit-slider-thumb, #slider_opp:active::-webkit-slider-thumb {
+        box-shadow: 2px 3px 6px 1px rgba(0, 0, 0, 0.5);
+    }
+
+
+#txt_user_name {
+    width: 40%;
+}
+
+#user_name_reuired_container {
+    flex: 1;
+}
+
+.required {
+    margin: 14px 0px 0px 4px;
+    background-color: red;
+    color: white;
+    width: 44px;
+    border-radius: 4px;
+    text-align: center;
+    font-size: 15px;
+}
+
+#upper_time_limit_container {
+    height: 0px;
+}
+
+#upper_time_limit_opp {
+    margin-top: -75px;
+    height: 70px;
+    width: 100vw;
+    background-color: rgba(174, 170, 131, 0.59);
 }

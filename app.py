@@ -1,7 +1,8 @@
 from flask import Flask, render_template, request
 from flask_socketio import SocketIO, send, emit, join_room, leave_room, rooms, close_room
-import os
 from collections import defaultdict
+import os
+import random
 
 #部屋ごとの人数を保持
 d_user_count = defaultdict(int)
@@ -17,6 +18,10 @@ class GameInfo:
         self.is_in_game = False
         #正解しているかどうか
         self.correct = [0, 0]
+
+        self.p1_time_limit = None
+        self.p2_time_limit = None
+
 
 d_info = defaultdict(GameInfo)
 
@@ -42,6 +47,8 @@ def get_user():
 #ユーザーが新しく接続すると実行
 @socketio.on('connect')
 def connect():
+    print('----部屋コード----------------------------')
+    print(d_user_count)
     pass
 
 #ユーザーの接続が切断すると実行
@@ -65,11 +72,47 @@ def disconnect():
     d_user_count[room_code] = 0
     d_info[room_code] = GameInfo()
 
+@socketio.on('create')
+def create(json):
+    global d_user_count, d_info
+    user_name = json["user_name"]
+    p1_time_limit = json["p1_time_limit"]
+    p2_time_limit = json["p2_time_limit"]
+
+    print(p1_time_limit, p2_time_limit)
+
+    #既存の部屋コードと被らない4桁の部屋コードを生成
+    room_code = str(random.randrange(9999)).zfill(4)
+    while d_user_count[room_code] != 0:
+        room_code = str(random.randrange(9999)).zfill(4)
+
+    join_room(room_code)
+    d_user_count[room_code] += 1
+
+    temp_info = d_info[room_code]
+    temp_info.p1_id = request.sid
+    temp_info.p1_user_name = user_name
+    temp_info.p1_time_limit = p1_time_limit
+    temp_info.p2_time_limit = p2_time_limit
+
+    emit('update_info_join', {'room_code': room_code
+                             ,'p1_user_name': temp_info.p1_user_name
+                             ,'p2_user_name': temp_info.p2_user_name
+                             ,'p1_id': temp_info.p1_id
+                             ,'p2_id': temp_info.p2_id}, broadcast=True, to=room_code)
+
+    d_info[room_code] = temp_info
+
 @socketio.on('join')
 def join(json):
     global d_user_count, d_info
     room_code = json["room_code"]
     user_name = json["user_name"]
+
+    #部屋が存在しない場合
+    if d_user_count[room_code] == 0:
+        emit('no_room_error')
+        return
 
     #満室だった場合
     if d_user_count[room_code] >= 2:
@@ -81,11 +124,7 @@ def join(json):
 
     temp_info = d_info[room_code]
 
-    if d_user_count[room_code] == 1:
-        temp_info.p1_id = request.sid
-        temp_info.p1_user_name = user_name
-
-    elif d_user_count[room_code] == 2:
+    if d_user_count[room_code] == 2:
         temp_info.p2_id = request.sid
         temp_info.p2_user_name = user_name
 
@@ -93,7 +132,9 @@ def join(json):
                              ,'p1_user_name': temp_info.p1_user_name
                              ,'p2_user_name': temp_info.p2_user_name
                              ,'p1_id': temp_info.p1_id
-                             ,'p2_id': temp_info.p2_id}, broadcast=True, to=room_code)
+                             ,'p2_id': temp_info.p2_id
+                             ,'p1_time_limit': temp_info.p1_time_limit
+                             ,'p2_time_limit': temp_info.p2_time_limit}, broadcast=True, to=room_code)
 
     d_info[room_code] = temp_info
 
