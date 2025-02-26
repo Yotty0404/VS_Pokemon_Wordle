@@ -234,5 +234,7 @@ def see_answer(json):
     emit('see_answer', {'p1_poke_name' : temp_info.p1_poke_name, 'p2_poke_name' : temp_info.p2_poke_name})
 
 
-if __name__ == '__main__':
-    socketio.run(app, debug=True)
+if __name__ == "__main__":
+    # 環境変数からポート番号を取得し、設定する
+    port = int(os.environ.get("PORT", 5000))
+    socketio.run(app, host="0.0.0.0", port=port)
