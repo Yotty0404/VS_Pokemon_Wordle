@@ -77,6 +77,8 @@ def disconnect():
 
 @socketio.on('create')
 def create(json):
+    print('----CREATE PUSHED----------------------------')
+
     global d_user_count, d_info
     user_name = json["user_name"]
     p1_time_limit = json["p1_time_limit"]
