@@ -3,6 +3,9 @@ from flask_socketio import SocketIO, send, emit, join_room, leave_room, rooms, c
 from collections import defaultdict
 import os
 import random
+import eventlet # type: ignore
+
+eventlet.monkey_patch()
 
 #部屋ごとの人数を保持
 d_user_count = defaultdict(int)
@@ -26,7 +29,7 @@ class GameInfo:
 d_info = defaultdict(GameInfo)
 
 app = Flask(__name__)
-socketio = SocketIO(app)
+socketio = SocketIO(app, async_mode='eventlet', cors_allowed_origins="*")
 
 @app.route("/", methods=["GET"])
 def get_user():
