@@ -26,7 +26,6 @@ function get_3poke_name() {
     return poke3_data[random]['name'];
 }
 
-var socket = io();
 const socket = io("https://www.vs-pokemon-wordle.com/", {
     transports: ["websocket"] // WebSocket のみを使用
 });
