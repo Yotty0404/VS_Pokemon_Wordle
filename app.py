@@ -57,6 +57,7 @@ def connect():
 #ユーザーの接続が切断すると実行
 @socketio.on('disconnect')
 def disconnect():
+    print('----disconnect----------------------------')
     global d_user_count, d_info
 
     room_code = ''
