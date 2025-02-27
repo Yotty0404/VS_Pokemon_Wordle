@@ -28,7 +28,9 @@ function get_3poke_name() {
 
 const socket = io("https://www.vs-pokemon-wordle.com", {
     transports: ["websocket"], // WebSocket のみを使用
-    withCredentials: true
+    withCredentials: true,
+    pingTimeout: 30000, // 30秒
+    pingInterval: 10000 // 10秒ごとにpingを送信
 });
 
 var room_code = '';

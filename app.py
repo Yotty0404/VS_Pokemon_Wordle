@@ -29,7 +29,7 @@ class GameInfo:
 d_info = defaultdict(GameInfo)
 
 app = Flask(__name__)
-socketio = SocketIO(app, async_mode='eventlet', cors_allowed_origins="*")
+socketio = SocketIO(app, async_mode='eventlet', cors_allowed_origins="*", ping_timeout=30, ping_interval=10)
 
 @app.route("/", methods=["GET"])
 def get_user():
