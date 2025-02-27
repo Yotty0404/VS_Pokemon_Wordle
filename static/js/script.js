@@ -26,8 +26,9 @@ function get_3poke_name() {
     return poke3_data[random]['name'];
 }
 
-const socket = io("https://www.vs-pokemon-wordle.com/", {
-    transports: ["websocket"] // WebSocket のみを使用
+const socket = io("https://www.vs-pokemon-wordle.com", {
+    transports: ["websocket"], // WebSocket のみを使用
+    withCredentials: true
 });
 
 var room_code = '';
