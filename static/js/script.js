@@ -33,6 +33,8 @@ const socket = io("https://www.vs-pokemon-wordle.com", {
     pingInterval: 10000 // 10秒ごとにpingを送信
 });
 
+console.log(socket)
+
 var room_code = '';
 var p1_id = '';
 var p2_id = '';
