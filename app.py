@@ -105,7 +105,7 @@ def create(json):
                              ,'p1_user_name': temp_info.p1_user_name
                              ,'p2_user_name': temp_info.p2_user_name
                              ,'p1_id': temp_info.p1_id
-                             ,'p2_id': temp_info.p2_id}, broadcast=True, to=room_code)
+                             ,'p2_id': temp_info.p2_id}, broadcast=False, to=room_code)
 
     d_info[room_code] = temp_info
 
